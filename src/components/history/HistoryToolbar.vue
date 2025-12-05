@@ -30,7 +30,7 @@ const leftText = computed(() => {
   return props.filteredSessionsCount > 0 ? t('history.sessionCount', { count: props.filteredSessionsCount }) : ''
 })
 
-const rightButtons = [
+const rightButtons = computed(() => [
   {
     props: {
       type: 'danger',
@@ -42,5 +42,5 @@ const rightButtons = [
     text: t('history.deleteSelected'),
     handler: () => emit('delete-selected')
   }
-]
+])
 </script>

@@ -1,6 +1,9 @@
 <template>
   <GenericToolbar>
     <template #left>
+      <span class="message-count" v-if="messageCount > 0">
+        {{ $t('chat.totalMessages', { count: messageCount }) }}
+      </span>
       <span v-if="searchQuery && matchedMessageIds.length > 0" class="search-result-hint">
         {{ $t('chat.foundResults', { count: matchedMessageIds.length }) }}
       </span>
@@ -41,6 +44,10 @@ defineProps({
   currentRunningModel: {
     type: String,
     default: null
+  },
+  messageCount: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -48,6 +55,13 @@ defineEmits(['new-chat'])
 </script>
 
 <style scoped>
+.message-count {
+  font-size: 13px;
+  color: #666;
+  margin-right: 15px;
+  font-weight: 500;
+}
+
 .search-result-hint {
   font-size: 13px;
   color: #faad14;

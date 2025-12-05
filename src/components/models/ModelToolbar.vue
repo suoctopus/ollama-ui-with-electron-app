@@ -30,7 +30,7 @@ const leftText = computed(() => {
   return props.filteredModels.length > 0 ? t('models.modelCount', { count: props.filteredModels.length }) : ''
 })
 
-const rightButtons = [
+const rightButtons = computed(() => [
   {
     props: {
       icon: RefreshCw,
@@ -49,5 +49,5 @@ const rightButtons = [
     text: t('models.pull'),
     handler: () => emit('open-pull-dialog')
   }
-]
+])
 </script>

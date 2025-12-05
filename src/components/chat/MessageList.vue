@@ -1,161 +1,124 @@
 <template>
-  <div class="messages-container" ref="messagesContainer">
-    <div v-if="messages.length === 0" class="empty-state">
-      <MessageSquare :size="64" color="#ccc" />
-      <p v-if="!currentRunningModel">{{ $t('chat.noRunningModel') }}</p>
-      <p v-else>{{ $t('chat.noModel') }}</p>
-    </div>
-    
-    <div class="messages-center">
-      <MessageCard
-        v-for="message in messages"
-        v-show="!message.hidden"
-        :key="message.id"
+  <div class="message-list" ref="messageListRef">
+    <div 
+      v-for="(message, index) in visibleMessages" 
+      :key="message.id"
+      :id="'message-' + message.id"
+      class="message-wrapper"
+    >
+      <MessageCard 
         :message="message"
-        :id="'msg-' + message.id"
-        class="message-card"
-        :class="{ 'is-search-matched': isMessageMatched(message.id) }"
+        :message-index="index + 1"
         @delete="$emit('delete', message.id)"
         @regenerate="$emit('regenerate', message.id)"
         @hide="$emit('hide', message.id)"
+        @update:active-message-id="$emit('update:active-message-id', $event)"
       />
     </div>
     
-    <div v-if="generating" class="generating-indicator">
-      <el-icon class="is-loading"><Loading /></el-icon>
-      <span>{{ $t('chat.generating') }}</span>
+    <div v-if="visibleMessages.length === 0" class="empty-state">
+      <MessageCircle :size="48" class="empty-icon" />
+      <p>{{ $t('chat.noMessages') }}</p>
+      <p class="empty-subtext">{{ $t('chat.startConversation') }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
-import { MessageSquare } from 'lucide-vue-next'
-import { Loading } from '@element-plus/icons-vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { MessageCircle } from 'lucide-vue-next'
 import MessageCard from '@/components/MessageCard.vue'
 
 const props = defineProps({
   messages: {
     type: Array,
-    required: true
-  },
-  currentRunningModel: {
-    type: String,
-    default: null
+    default: () => []
   },
   generating: {
     type: Boolean,
     default: false
-  },
-  matchedMessageIds: {
-    type: Array,
-    default: () => []
   }
 })
 
-const emit = defineEmits(['delete', 'regenerate', 'hide', 'update:activeMessageId'])
+defineEmits(['delete', 'regenerate', 'hide', 'update:active-message-id'])
 
-const messagesContainer = ref(null)
-const observer = ref(null)
+const messageListRef = ref(null)
 
-const isMessageMatched = (msgId) => {
-  return props.matchedMessageIds.includes(msgId)
-}
+const visibleMessages = computed(() => {
+  return props.messages.filter(msg => !msg.hidden)
+})
 
 const scrollToBottom = () => {
-  nextTick(() => {
-    if (messagesContainer.value) {
-      messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight
-    }
-  })
+  if (messageListRef.value) {
+    messageListRef.value.scrollTop = messageListRef.value.scrollHeight
+  }
 }
 
 const scrollToMessage = (messageId) => {
-  const element = document.getElementById('msg-' + messageId)
+  const element = document.getElementById('message-' + messageId)
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    // Highlight the message temporarily
+    element.classList.add('highlight')
+    setTimeout(() => {
+      element.classList.remove('highlight')
+    }, 2000)
   }
 }
-
-const setupIntersectionObserver = () => {
-  if (observer.value) observer.value.disconnect()
-  
-  observer.value = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id.replace('msg-', '')
-        emit('update:activeMessageId', id)
-      }
-    })
-  }, {
-    root: messagesContainer.value,
-    threshold: 0.5
-  })
-  
-  nextTick(() => {
-    const cards = document.querySelectorAll('.message-card')
-    cards.forEach(card => observer.value.observe(card))
-  })
-}
-
-watch(() => props.messages.length, () => {
-  setupIntersectionObserver()
-  scrollToBottom()
-})
-
-onMounted(() => {
-  setupIntersectionObserver()
-})
-
-onUnmounted(() => {
-  if (observer.value) observer.value.disconnect()
-})
 
 defineExpose({
   scrollToBottom,
   scrollToMessage
 })
+
+onMounted(() => {
+  // Initial scroll to bottom
+  scrollToBottom()
+})
+
+onUnmounted(() => {
+  // Clean up if needed
+})
 </script>
 
 <style scoped>
-.messages-container {
+.message-list {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
-  padding-bottom: 180px; /* 增加底部距离，防止输入框遮挡 */
+  display: flex;
+  flex-direction: column;
 }
 
-.messages-center {
-  max-width: 800px;
-  margin: 0 auto;
+.message-wrapper {
+  transition: background-color 0.3s;
+}
+
+.message-wrapper.highlight {
+  background-color: #fff9c4;
+  border-radius: 8px;
+  padding: 8px;
 }
 
 .empty-state {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
   color: #999;
+  text-align: center;
+  padding: 40px;
 }
 
-.empty-state p {
-  margin-top: 16px;
-  font-size: 16px;
+.empty-icon {
+  margin-bottom: 16px;
+  color: #ccc;
 }
 
-.generating-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px;
-  color: #409eff;
+.empty-subtext {
   font-size: 14px;
-}
-
-:deep(.is-search-matched) {
-  box-shadow: 0 0 0 2px #faad14;
-  border-radius: 8px;
+  color: #bbb;
+  margin-top: 8px;
 }
 </style>

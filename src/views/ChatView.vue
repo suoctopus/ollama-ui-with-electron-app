@@ -33,6 +33,7 @@
             :search-query="searchQuery"
             :matched-message-ids="matchedMessageIds"
             :current-running-model="currentRunningModel"
+            :message-count="currentMessages.length"
             @new-chat="handleNewChat"
           />
 

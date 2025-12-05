@@ -10,6 +10,7 @@
       <div class="message-header">
         <div class="header-left">
           <span class="message-role">{{ roleText }}</span>
+          <span class="message-index" v-if="messageIndex">#{{ messageIndex }}</span>
           <span class="message-time">{{ formatTime(message.createdAt) }}</span>
         </div>
         <div class="header-actions">
@@ -80,6 +81,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  messageIndex: {
+    type: Number,
+    default: 0
+  }
 })
 
 const isThinkingCollapsed = ref(false)
@@ -235,6 +240,12 @@ const handleRegenerate = () => {
 .message-role {
   font-weight: 600;
   color: #333;
+}
+
+.message-index {
+  font-weight: 500;
+  color: #999;
+  font-size: 12px;
 }
 
 .message-time {

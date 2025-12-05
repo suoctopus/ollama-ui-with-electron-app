@@ -3,7 +3,7 @@
     <div class="outline-panel-header">
       <span class="outline-title">{{ $t('chat.outline') }}</span>
     </div>
-    
+
 
 
     <div v-if="isInputHidden" class="restore-section">
@@ -14,7 +14,7 @@
     </div>
     <div class="outline-list" ref="outlineList">
       <div 
-        v-for="msg in messages" 
+        v-for="(msg, index) in messages" 
         :key="msg.id" 
         class="outline-item" 
         :class="{ 'active': activeMessageId === msg.id, 'is-hidden': msg.hidden, 'is-matched': isMessageMatched(msg.id) }"
@@ -25,7 +25,7 @@
           <div class="outline-role">
             <User v-if="msg.role === 'user'" :size="14" />
             <Bot v-else :size="14" />
-            <span>{{ msg.role === 'user' ? $t('chat.user') : $t('chat.assistant') }}</span>
+            <span>#{{ index + 1 }} {{ msg.role === 'user' ? $t('chat.user') : $t('chat.assistant') }}</span>
           </div>
           <div class="outline-time">{{ new Date(msg.createdAt).toLocaleTimeString() }}</div>
         </div>
