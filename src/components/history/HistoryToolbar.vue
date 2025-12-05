@@ -1,11 +1,13 @@
 <template>
   <GenericToolbar
-    :left-text="filteredSessionsCount > 0 ? $t('history.sessionCount', { count: filteredSessionsCount }) : ''"
+    :left-text="leftText"
     :right-buttons="rightButtons"
   />
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Trash2 } from 'lucide-vue-next'
 import GenericToolbar from '@/components/common/GenericToolbar.vue'
 
@@ -20,7 +22,13 @@ const props = defineProps({
   }
 })
 
+const { t } = useI18n()
+
 const emit = defineEmits(['delete-selected'])
+
+const leftText = computed(() => {
+  return props.filteredSessionsCount > 0 ? t('history.sessionCount', { count: props.filteredSessionsCount }) : ''
+})
 
 const rightButtons = [
   {
@@ -31,15 +39,8 @@ const rightButtons = [
       size: 'small',
       plain: true
     },
-    text: $t('history.deleteSelected'),
+    text: t('history.deleteSelected'),
     handler: () => emit('delete-selected')
   }
 ]
 </script>
-
-<style scoped>
-.sessions-count {
-  font-size: 13px;
-  color: #666;
-}
-</style>

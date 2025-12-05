@@ -1,6 +1,6 @@
 <template>
   <GenericSidebar
-    :title="$t('models.categories')"
+    :title="title"
     :items="sidebarItems"
     v-model="currentFamily"
     @select="onSelectFamily"
@@ -9,6 +9,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { LayoutGrid, Box } from 'lucide-vue-next'
 import GenericSidebar from '@/components/common/GenericSidebar.vue'
 
@@ -23,12 +24,16 @@ const props = defineProps({
   }
 })
 
+const { t } = useI18n()
+
 const emit = defineEmits(['update:modelValue'])
 
 const currentFamily = computed({
   get: () => props.modelValue,
   set: (value) => emit('update:modelValue', value)
 })
+
+const title = computed(() => t('models.categories'))
 
 // Get unique model families
 const modelFamilies = computed(() => {
@@ -49,7 +54,7 @@ const getModelCountByFamily = (family) => {
 const sidebarItems = computed(() => {
   const items = [{
     key: 'all',
-    name: $t('models.allModels'),
+    name: t('models.allModels'),
     icon: LayoutGrid,
     count: props.models.length
   }]

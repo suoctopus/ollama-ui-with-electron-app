@@ -1,6 +1,6 @@
 <template>
   <GenericSidebar
-    :title="$t('history.categories')"
+    :title="title"
     :items="sidebarItems"
     v-model="currentCategory"
     :show-header-slot="true"
@@ -9,7 +9,7 @@
   >
     <template #header>
       <div class="sidebar-header">
-        <h3>{{ $t('history.categories') }}</h3>
+        <h3>{{ title }}</h3>
         <el-button :icon="Plus" circle size="small" @click="$emit('add-category')" />
       </div>
     </template>
@@ -18,6 +18,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { LayoutGrid, HelpCircle, Folder, Plus, Trash2 } from 'lucide-vue-next'
 import GenericSidebar from '@/components/common/GenericSidebar.vue'
 
@@ -40,6 +41,8 @@ const props = defineProps({
   }
 })
 
+const { t } = useI18n()
+
 const emit = defineEmits(['update:modelValue', 'add-category', 'delete-category'])
 
 const currentCategory = computed({
@@ -47,17 +50,19 @@ const currentCategory = computed({
   set: (value) => emit('update:modelValue', value)
 })
 
+const title = computed(() => t('history.categories'))
+
 const sidebarItems = computed(() => {
   const items = [
     {
       key: 'all',
-      name: $t('history.allChats'),
+      name: t('history.allChats'),
       icon: LayoutGrid,
       count: props.allSessionsCount
     },
     {
       key: 'uncategorized',
-      name: $t('history.uncategorized'),
+      name: t('history.uncategorized'),
       icon: HelpCircle,
       count: props.uncategorizedSessionsCount
     }
