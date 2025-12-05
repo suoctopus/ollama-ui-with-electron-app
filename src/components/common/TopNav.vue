@@ -46,12 +46,12 @@ import { MessageSquare, Box, History, Settings } from 'lucide-vue-next'
 .top-nav {
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 4px;
   height: 56px;
   background: white;
   border-bottom: 1px solid #e8e8e8;
   flex-shrink: 0;
-  gap: 16px;
+  gap: 4px;
 }
 
 .nav-brand {
@@ -66,15 +66,15 @@ import { MessageSquare, Box, History, Settings } from 'lucide-vue-next'
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
   flex: 1;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 4px;
+  padding: 6px 8px;
   border-radius: 6px;
   text-decoration: none;
   color: #666;
@@ -92,6 +92,13 @@ import { MessageSquare, Box, History, Settings } from 'lucide-vue-next'
   background: #e6f7ff;
   color: #409eff;
   font-weight: 500;
+}
+
+#global-search {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .nav-actions {

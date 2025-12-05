@@ -8,7 +8,7 @@
           :placeholder="$t('settings.search')"
           :prefix-icon="SearchIcon"
           clearable
-          style="width: 200px"
+          style="width: 150px"
           size="small"
         />
       </Teleport>

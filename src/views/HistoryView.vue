@@ -8,7 +8,7 @@
           :placeholder="$t('history.search')"
           :prefix-icon="Search"
           clearable
-          style="width: 200px"
+          style="width: 150px"
           size="small"
         />
       </Teleport>
