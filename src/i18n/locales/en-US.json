@@ -75,7 +75,10 @@
         "loadSuccess": "Model loaded successfully",
         "loadFailed": "Failed to load model",
         "unloadSuccess": "Model unloaded successfully",
-        "unloadFailed": "Failed to unload model"
+        "unloadFailed": "Failed to unload model",
+        "categories": "Model Categories",
+        "allModels": "All Models",
+        "modelCount": "{count} models"
     },
     "history": {
         "title": "Chat History",
@@ -93,7 +96,8 @@
         "editTitle": "Edit Title",
         "setCategory": "Set Category",
         "newCategory": "New Category",
-        "enterCategory": "Enter category name"
+        "enterCategory": "Enter category name",
+        "sessionCount": "{count} sessions"
     },
     "settings": {
         "title": "Settings",

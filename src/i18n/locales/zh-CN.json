@@ -96,7 +96,10 @@
         "refresh": "刷新状态",
         "modelsCount": "个模型",
         "search": "搜索模型...",
-        "basicInfo": "基本信息"
+        "basicInfo": "基本信息",
+        "categories": "模型分类",
+        "allModels": "所有模型",
+        "modelCount": "{count} 个模型"
     },
     "history": {
         "title": "聊天记录",
@@ -118,7 +121,8 @@
         "categories": "分类列表",
         "allChats": "所有对话",
         "addCategory": "新建分类",
-        "categoryName": "分类名称"
+        "categoryName": "分类名称",
+        "sessionCount": "{count} 个会话"
     },
     "settings": {
         "title": "系统设置",
