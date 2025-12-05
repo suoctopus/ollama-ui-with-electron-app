@@ -103,19 +103,20 @@ watch(() => props.activeMessageId, (newId) => {
 }
 
 .outline-panel-header {
-  padding: 12px 16px;
+  padding: 16px; /* 统一边距 */
   border-bottom: 1px solid #e0e0e0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* 左对齐 */
   align-items: center;
   position: relative;
-  height: 45px; /* Fixed height for consistency */
+  height: 56px; /* 统一标题行高度 */
 }
 
 .outline-title {
   font-weight: 600;
   color: #333;
-  font-size: 14px;
+  font-size: 16px; /* 统一字体大小 */
+  text-align: left; /* 左对齐 */
 }
 
 

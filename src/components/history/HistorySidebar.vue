@@ -78,6 +78,12 @@ defineEmits(['update:currentCategory', 'add-category', 'delete-category'])
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  height: 56px; /* 统一标题行高度 */
+}
+
+.sidebar-header h3 {
+  font-size: 16px; /* 统一字体大小 */
+  text-align: left; /* 左对齐 */
 }
 
 .category-list {

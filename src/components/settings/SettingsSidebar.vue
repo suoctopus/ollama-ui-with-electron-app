@@ -74,4 +74,11 @@ defineEmits(['update:activeTab'])
 .category-name {
   flex: 1;
 }
+
+/* 在这里添加设置项的样式，使其与其它面板保持一致 */
+.settings-item {
+  height: 56px; /* 统一标题行高度 */
+  font-size: 16px; /* 统一字体大小 */
+  text-align: left; /* 左对齐 */
+}
 </style>

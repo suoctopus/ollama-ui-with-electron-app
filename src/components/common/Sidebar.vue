@@ -33,13 +33,18 @@ defineProps({
 .sidebar-header {
   padding: 16px;
   border-bottom: 1px solid #f0f0f0;
+  height: 56px; /* 统一标题行高度 */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* 左对齐 */
 }
 
 .sidebar-header h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px; /* 统一字体大小 */
   font-weight: 600;
   color: #333;
+  text-align: left; /* 左对齐 */
 }
 
 .sidebar-content {
