@@ -169,7 +169,7 @@ defineExpose({
 /* Floating Input Area */
 .input-float-wrapper {
   position: sticky;
-  bottom: 30px;
+  bottom: 20px;
   left: 0;
   right: 0;
   padding: 20px;
