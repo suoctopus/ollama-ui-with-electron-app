@@ -88,7 +88,6 @@ onUnmounted(() => {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 120px;
 }
 
 .message-wrapper {

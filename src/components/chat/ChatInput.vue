@@ -169,13 +169,13 @@ defineExpose({
 /* Floating Input Area */
 .input-float-wrapper {
   position: sticky;
-  bottom: 0;
+  bottom: 30px;
   left: 0;
   right: 0;
   padding: 20px;
+  padding-bottom: 0;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent 0%, #f5f5f5 60%);
-  padding-bottom: 0;
 }
 
 .input-float-card {
