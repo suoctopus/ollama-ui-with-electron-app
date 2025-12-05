@@ -31,7 +31,9 @@
     "removeImage": "Remove Image",
     "searchMessages": "Search messages...",
     "totalMessages": "{count} messages",
-    "foundResults": "Found {count} results"
+    "foundResults": "Found {count} results",
+    "noMessages": "No messages yet",
+    "startConversation": "Start a conversation"
   },
   "models": {
     "title": "Model Management",

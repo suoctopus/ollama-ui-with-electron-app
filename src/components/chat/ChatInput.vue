@@ -168,12 +168,14 @@ defineExpose({
 <style scoped>
 /* Floating Input Area */
 .input-float-wrapper {
-  position: absolute;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 20px;
   pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, #f5f5f5 60%);
+  padding-bottom: 0;
 }
 
 .input-float-card {
