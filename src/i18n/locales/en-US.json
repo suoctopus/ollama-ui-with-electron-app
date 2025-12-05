@@ -121,7 +121,8 @@
         "topP": "Top P",
         "topK": "Top K",
         "maxTokens": "Max Tokens",
-        "contextWindow": "Context Window"
+        "contextWindow": "Context Window",
+        "search": "Search settings..."
     },
     "common": {
         "confirm": "Confirm",

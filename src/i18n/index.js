@@ -8,18 +8,10 @@ const i18n = createI18n({
     fallbackLocale: 'en-US',
     messages: {
         'zh-CN': {
-            ...zhCN,
-            settings: {
-                ...zhCN.settings,
-                search: '搜索设置...'
-            }
+            ...zhCN
         },
         'en-US': {
-            ...enUS,
-            settings: {
-                ...enUS.settings,
-                search: 'Search settings...'
-            }
+            ...enUS
         },
     },
 })

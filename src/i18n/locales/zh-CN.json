@@ -150,7 +150,8 @@
         "contextWindow": "上下文窗口",
         "saved": "设置已保存",
         "resetSuccess": "设置已重置",
-        "resetKeySuccess": "已恢复默认值"
+        "resetKeySuccess": "已恢复默认值",
+        "search": "搜索设置..."
     },
     "common": {
         "confirm": "确认",
