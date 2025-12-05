@@ -66,6 +66,16 @@
         </div>
       </div>
     </div>
+
+    <!-- Action buttons inside the card -->
+    <div class="settings-actions">
+      <el-button @click="$emit('reset')">
+        {{ $t('settings.reset') }}
+      </el-button>
+      <el-button type="primary" @click="$emit('save')">
+        {{ $t('settings.save') }}
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -188,5 +198,13 @@ defineEmits(['test-connection', 'reset-key'])
   color: #f56c6c;
   font-weight: 500;
   font-size: 13px;
+}
+
+.settings-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
 }
 </style>

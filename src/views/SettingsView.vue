@@ -50,6 +50,8 @@
               :connection-status="connectionStatus"
               @test-connection="handleTestConnection"
               @reset-key="handleResetKey"
+              @reset="handleReset"
+              @save="handleSave"
             />
           
             <!-- Advanced Settings -->
@@ -58,17 +60,9 @@
               :local-settings="localSettings"
               v-model:isKeepAlivePermanent="isKeepAlivePermanent"
               @reset-key="handleResetKey"
+              @reset="handleReset"
+              @save="handleSave"
             />
-           
-            <!-- Actions -->
-            <div class="settings-actions">
-              <el-button @click="handleReset">
-                {{ $t('settings.reset') }}
-              </el-button>
-              <el-button type="primary" @click="handleSave">
-                {{ $t('settings.save') }}
-              </el-button>
-            </div>
           </div>
         </div>
       </div>

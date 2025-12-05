@@ -251,6 +251,16 @@
         />
       </div>
     </div>
+
+    <!-- Action buttons inside the card -->
+    <div class="settings-actions">
+      <el-button @click="$emit('reset')">
+        {{ $t('settings.reset') }}
+      </el-button>
+      <el-button type="primary" @click="$emit('save')">
+        {{ $t('settings.save') }}
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -364,5 +374,13 @@ defineEmits(['reset-key', 'update:isKeepAlivePermanent'])
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.settings-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
 }
 </style>
