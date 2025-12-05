@@ -18,11 +18,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
+  padding: 0 16px;
   background: white;
   border-bottom: 1px solid #e8e8e8;
   flex-shrink: 0;
-  height: 45px; /* 统一工具栏高度 */
+  height: 56px; /* 统一工具栏高度 */
 }
 
 .toolbar-left {
