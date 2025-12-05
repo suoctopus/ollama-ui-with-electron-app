@@ -176,6 +176,8 @@ const handleRegenerate = () => {
   border-radius: 8px;
   background: white;
   max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .message-user {
