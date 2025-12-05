@@ -10,6 +10,9 @@
 - ✅ **系统配置**: Ollama 服务器地址配置,语言切换,高级参数设置
 - ✅ **完全离线**: 所有资源本地化,无需 CDN
 - ✅ **国际化**: 支持中文和英文,默认中文
+- ✅ **思维模式**: 支持模型思考过程可视化显示
+- ✅ **图像识别**: 支持上传图片进行视觉问答
+- ✅ **高级参数调节**: 支持温度、Top P、Top K等多种参数调节
 
 ## 技术栈
 
@@ -21,6 +24,7 @@
 - **Lucide Icons**: 现代图标库
 - **Markdown-it**: Markdown 渲染
 - **Highlight.js**: 代码语法高亮
+- **Vue I18n**: 国际化解决方案
 
 ## 快速开始
 
@@ -83,8 +87,14 @@ src/
 ├── api/            # API 接口层
 │   └── ollama.js   # Ollama API 客户端
 ├── components/     # Vue 组件
+│   ├── chat/       # 聊天相关组件
+│   ├── common/     # 通用组件
+│   ├── history/    # 历史记录相关组件
+│   ├── models/     # 模型管理相关组件
+│   ├── settings/   # 设置相关组件
 │   ├── Layout.vue  # 主布局
 │   └── MessageCard.vue # 消息卡片
+├── composables/    # Vue 组合式函数
 ├── i18n/          # 国际化
 │   ├── index.js
 │   └── locales/
@@ -127,6 +137,9 @@ electron/
 - **Top P**: 核采样参数 (0-1)
 - **Top K**: 限制候选词数量 (1-100)
 - **Max Tokens**: 最大生成令牌数
+- **Seed**: 随机种子，用于生成可重现的结果
+- **Context Window**: 上下文窗口大小
+- **Keep Alive**: 模型在内存中保持加载的时间
 
 ## 许可证
 
