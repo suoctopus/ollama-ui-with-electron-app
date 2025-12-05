@@ -22,26 +22,24 @@
         <!-- Main Content -->
         <div class="settings-main">
           <!-- Toolbar -->
-          <Toolbar>
-            <template #left>
-              <el-button-group>
-                <el-button 
-                  :type="activeTab === 'general' ? 'primary' : 'default'"
-                  @click="activeTab = 'general'"
-                  size="small"
-                >
-                  {{ $t('settings.general') }}
-                </el-button>
-                <el-button 
-                  :type="activeTab === 'advanced' ? 'primary' : 'default'"
-                  @click="activeTab = 'advanced'"
-                  size="small"
-                >
-                  {{ $t('settings.advancedSettings') }}
-                </el-button>
-              </el-button-group>
-            </template>
-          </Toolbar>
+          <div class="settings-toolbar">
+            <el-button-group>
+              <el-button 
+                :type="activeTab === 'general' ? 'primary' : 'default'"
+                @click="activeTab = 'general'"
+                size="small"
+              >
+                {{ $t('settings.general') }}
+              </el-button>
+              <el-button 
+                :type="activeTab === 'advanced' ? 'primary' : 'default'"
+                @click="activeTab = 'advanced'"
+                size="small"
+              >
+                {{ $t('settings.advancedSettings') }}
+              </el-button>
+            </el-button-group>
+          </div>
 
           <div class="settings-content">
             <!-- General Settings -->
@@ -256,6 +254,17 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.settings-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  background: white;
+  border-bottom: 1px solid #e8e8e8;
+  flex-shrink: 0;
+  height: 56px;
 }
 
 .settings-content {
