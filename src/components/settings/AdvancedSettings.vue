@@ -278,7 +278,7 @@ defineProps({
   }
 })
 
-defineEmits(['reset-key', 'update:isKeepAlivePermanent'])
+defineEmits(['reset-key', 'update:isKeepAlivePermanent', 'reset', 'save'])
 </script>
 
 <style scoped>

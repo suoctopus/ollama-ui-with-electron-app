@@ -16,7 +16,7 @@ export function useSessionSettings() {
         top_p: 0.9,
         top_k: 40,
         seed: -1,
-        num_predict: 128,
+        num_predict: -1,  // Changed default to -1 (no limit)
         repeat_penalty: 1.1,
         num_ctx: 2048,
     }
@@ -27,7 +27,7 @@ export function useSessionSettings() {
         top_p: 0.9,
         top_k: 40,
         seed: -1,
-        num_predict: 128,
+        num_predict: -1,  // Changed default to -1 (no limit)
         repeat_penalty: 1.1,
         num_ctx: 2048,
     })
@@ -43,7 +43,7 @@ export function useSessionSettings() {
         localSettings.top_p = savedSettings.top_p ?? settingsStore.topP
         localSettings.top_k = savedSettings.top_k ?? settingsStore.topK
         localSettings.seed = savedSettings.seed ?? -1
-        localSettings.num_predict = savedSettings.num_predict ?? 128
+        localSettings.num_predict = savedSettings.num_predict ?? -1  // Changed default to -1 (no limit)
         localSettings.repeat_penalty = savedSettings.repeat_penalty ?? 1.1
         localSettings.num_ctx = savedSettings.num_ctx ?? 2048
     }

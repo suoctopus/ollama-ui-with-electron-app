@@ -15,7 +15,7 @@ export const useSettingsStore = defineStore('settings', {
 
         // Sampling parameters
         seed: -1,                // Random seed (-1 for random)
-        numPredict: 128,         // Max tokens to generate
+        numPredict: -1,          // Max tokens to generate (-1 for no limit)
         minP: 0.0,               // Minimum probability threshold
         typicalP: 1.0,           // Typical sampling parameter
 
@@ -98,7 +98,7 @@ export const useSettingsStore = defineStore('settings', {
                 topK: 40,
                 maxTokens: 2048,
                 seed: -1,
-                numPredict: 128,
+                numPredict: -1,          // Changed default to -1 (no limit)
                 minP: 0.0,
                 typicalP: 1.0,
                 repeatLastN: 64,

@@ -97,7 +97,7 @@ defineProps({
   }
 })
 
-defineEmits(['test-connection', 'reset-key'])
+defineEmits(['test-connection', 'reset-key', 'reset', 'save'])
 </script>
 
 <style scoped>

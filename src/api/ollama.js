@@ -73,31 +73,41 @@ export const generateChat = async (model, messages, options = {}, onStream = nul
         const reader = response.body.getReader()
         const decoder = new TextDecoder()
 
-        while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
+        try {
+            while (true) {
+                const { done, value } = await reader.read()
+                if (done) break
 
-            const chunk = decoder.decode(value)
-            const lines = chunk.split('\n').filter(line => line.trim())
+                const chunk = decoder.decode(value, { stream: true })
+                const lines = chunk.split('\n').filter(line => line.trim())
 
-            for (const line of lines) {
-                try {
-                    const data = JSON.parse(line)
-                    // 提取 thinking 和 content 字段
-                    if (data.message) {
-                        const streamData = {
-                            ...data,
-                            content: data.message.content || '',
-                            thinking: data.message.thinking || '',
+                for (const line of lines) {
+                    try {
+                        const data = JSON.parse(line)
+                        // Always process the data first
+                        // 提取 thinking 和 content 字段
+                        if (data.message) {
+                            const streamData = {
+                                ...data,
+                                content: data.message.content || '',
+                                thinking: data.message.thinking || '',
+                            }
+                            onStream(streamData)
+                        } else {
+                            onStream(data)
                         }
-                        onStream(streamData)
-                    } else {
-                        onStream(data)
+                        // Check if the stream should be terminated based on done field
+                        // But we still process the content in this final packet
+                        if (data.done === true) {
+                            return
+                        }
+                    } catch (e) {
+                        console.error('Failed to parse chunk:', e)
                     }
-                } catch (e) {
-                    console.error('Failed to parse chunk:', e)
                 }
             }
+        } finally {
+            reader.releaseLock()
         }
     } else {
         return await response.json()
@@ -151,21 +161,30 @@ export const generateCompletion = async (model, prompt, options = {}, onStream =
         const reader = response.body.getReader()
         const decoder = new TextDecoder()
 
-        while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
+        try {
+            while (true) {
+                const { done, value } = await reader.read()
+                if (done) break
 
-            const chunk = decoder.decode(value)
-            const lines = chunk.split('\n').filter(line => line.trim())
+                const chunk = decoder.decode(value, { stream: true })
+                const lines = chunk.split('\n').filter(line => line.trim())
 
-            for (const line of lines) {
-                try {
-                    const data = JSON.parse(line)
-                    onStream(data)
-                } catch (e) {
-                    console.error('Failed to parse chunk:', e)
+                for (const line of lines) {
+                    try {
+                        const data = JSON.parse(line)
+                        // Check if the stream should be terminated based on done field
+                        if (data.done === true) {
+                            onStream(data)
+                            return
+                        }
+                        onStream(data)
+                    } catch (e) {
+                        console.error('Failed to parse chunk:', e)
+                    }
                 }
             }
+        } finally {
+            reader.releaseLock()
         }
     } else {
         return await response.json()
@@ -240,21 +259,30 @@ export const pullModel = async (name, insecure = false, onStream = null) => {
         const reader = response.body.getReader()
         const decoder = new TextDecoder()
 
-        while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
+        try {
+            while (true) {
+                const { done, value } = await reader.read()
+                if (done) break
 
-            const chunk = decoder.decode(value)
-            const lines = chunk.split('\n').filter(line => line.trim())
+                const chunk = decoder.decode(value, { stream: true })
+                const lines = chunk.split('\n').filter(line => line.trim())
 
-            for (const line of lines) {
-                try {
-                    const data = JSON.parse(line)
-                    onStream(data)
-                } catch (e) {
-                    console.error('Failed to parse chunk:', e)
+                for (const line of lines) {
+                    try {
+                        const data = JSON.parse(line)
+                        // Check if the stream should be terminated based on done field
+                        if (data.done === true) {
+                            onStream(data)
+                            return
+                        }
+                        onStream(data)
+                    } catch (e) {
+                        console.error('Failed to parse chunk:', e)
+                    }
                 }
             }
+        } finally {
+            reader.releaseLock()
         }
     } else {
         return await response.json()
@@ -282,21 +310,30 @@ export const pushModel = async (name, insecure = false, onStream = null) => {
         const reader = response.body.getReader()
         const decoder = new TextDecoder()
 
-        while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
+        try {
+            while (true) {
+                const { done, value } = await reader.read()
+                if (done) break
 
-            const chunk = decoder.decode(value)
-            const lines = chunk.split('\n').filter(line => line.trim())
+                const chunk = decoder.decode(value, { stream: true })
+                const lines = chunk.split('\n').filter(line => line.trim())
 
-            for (const line of lines) {
-                try {
-                    const data = JSON.parse(line)
-                    onStream(data)
-                } catch (e) {
-                    console.error('Failed to parse chunk:', e)
+                for (const line of lines) {
+                    try {
+                        const data = JSON.parse(line)
+                        // Check if the stream should be terminated based on done field
+                        if (data.done === true) {
+                            onStream(data)
+                            return
+                        }
+                        onStream(data)
+                    } catch (e) {
+                        console.error('Failed to parse chunk:', e)
+                    }
                 }
             }
+        } finally {
+            reader.releaseLock()
         }
     } else {
         return await response.json()
@@ -413,21 +450,30 @@ export const createModel = async (name, modelfile, path, quantize, onStream = nu
         const reader = response.body.getReader()
         const decoder = new TextDecoder()
 
-        while (true) {
-            const { done, value } = await reader.read()
-            if (done) break
+        try {
+            while (true) {
+                const { done, value } = await reader.read()
+                if (done) break
 
-            const chunk = decoder.decode(value)
-            const lines = chunk.split('\n').filter(line => line.trim())
+                const chunk = decoder.decode(value, { stream: true })
+                const lines = chunk.split('\n').filter(line => line.trim())
 
-            for (const line of lines) {
-                try {
-                    const data = JSON.parse(line)
-                    onStream(data)
-                } catch (e) {
-                    console.error('Failed to parse chunk:', e)
+                for (const line of lines) {
+                    try {
+                        const data = JSON.parse(line)
+                        // Check if the stream should be terminated based on done field
+                        if (data.done === true) {
+                            onStream(data)
+                            return
+                        }
+                        onStream(data)
+                    } catch (e) {
+                        console.error('Failed to parse chunk:', e)
+                    }
                 }
             }
+        } finally {
+            reader.releaseLock()
         }
     } else {
         return await response.json()

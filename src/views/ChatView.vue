@@ -195,9 +195,9 @@ const handleSendMessage = async ({ content, images, think }) => {
     if (localSettings.seed !== -1) {
       options.seed = localSettings.seed
     }
-    if (localSettings.num_predict > 0) {
-      options.num_predict = localSettings.num_predict
-    }
+    // Always pass num_predict, even if -1 (no limit)
+    options.num_predict = localSettings.num_predict
+    
     if (localSettings.repeat_penalty !== 1.1) {
       options.repeat_penalty = localSettings.repeat_penalty
     }
@@ -210,15 +210,34 @@ const handleSendMessage = async ({ content, images, think }) => {
       messages,
       options,
       (data) => {
-        if (data.content) {
-          chatStore.updateMessage(assistantMessage.id, {
-            content: (assistantMessage.content || '') + data.content,
-          })
-        }
-        if (data.thinking) {
-          chatStore.updateMessage(assistantMessage.id, {
-            thinking: (assistantMessage.thinking || '') + data.thinking,
-          })
+        // Process all data packets including the final one with done=true
+        if (data.message) {
+          // For chat API, content is in data.message.content
+          if (data.message.content) {
+            chatStore.updateMessage(assistantMessage.id, {
+              content: (chatStore.currentMessages.find(m => m.id === assistantMessage.id)?.content || '') + data.message.content,
+            })
+          }
+          
+          // For thinking models
+          if (data.message.thinking) {
+            chatStore.updateMessage(assistantMessage.id, {
+              thinking: (chatStore.currentMessages.find(m => m.id === assistantMessage.id)?.thinking || '') + data.message.thinking,
+            })
+          }
+        } else {
+          // For non-chat APIs or direct content
+          if (data.content) {
+            chatStore.updateMessage(assistantMessage.id, {
+              content: (chatStore.currentMessages.find(m => m.id === assistantMessage.id)?.content || '') + data.content,
+            })
+          }
+          
+          if (data.thinking) {
+            chatStore.updateMessage(assistantMessage.id, {
+              thinking: (chatStore.currentMessages.find(m => m.id === assistantMessage.id)?.thinking || '') + data.thinking,
+            })
+          }
         }
       }
     )
