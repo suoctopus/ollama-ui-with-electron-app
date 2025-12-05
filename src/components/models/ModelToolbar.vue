@@ -1,27 +1,15 @@
 <template>
-  <Toolbar>
-    <template #left>
-      <span v-if="filteredModels.length > 0" class="models-count">
-        {{ $t('models.modelCount', { count: filteredModels.length }) }}
-      </span>
-    </template>
-    
-    <template #right>
-      <el-button @click="$emit('refresh')" :icon="RefreshCw" :loading="loading" size="small">
-        {{ $t('models.refresh') }}
-      </el-button>
-      <el-button type="primary" @click="$emit('open-pull-dialog')" :icon="Download" size="small">
-        {{ $t('models.pull') }}
-      </el-button>
-    </template>
-  </Toolbar>
+  <GenericToolbar
+    :left-text="filteredModels.length > 0 ? $t('models.modelCount', { count: filteredModels.length }) : ''"
+    :right-buttons="rightButtons"
+  />
 </template>
 
 <script setup>
 import { RefreshCw, Download } from 'lucide-vue-next'
-import Toolbar from '@/components/common/Toolbar.vue'
+import GenericToolbar from '@/components/common/GenericToolbar.vue'
 
-defineProps({
+const props = defineProps({
   filteredModels: {
     type: Array,
     default: () => []
@@ -32,12 +20,26 @@ defineProps({
   }
 })
 
-defineEmits(['refresh', 'open-pull-dialog'])
-</script>
+const emit = defineEmits(['refresh', 'open-pull-dialog'])
 
-<style scoped>
-.models-count {
-  font-size: 13px;
-  color: #666;
-}
-</style>
+const rightButtons = [
+  {
+    props: {
+      icon: RefreshCw,
+      loading: props.loading,
+      size: 'small'
+    },
+    text: $t('models.refresh'),
+    handler: () => emit('refresh')
+  },
+  {
+    props: {
+      type: 'primary',
+      icon: Download,
+      size: 'small'
+    },
+    text: $t('models.pull'),
+    handler: () => emit('open-pull-dialog')
+  }
+]
+</script>

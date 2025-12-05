@@ -1,5 +1,5 @@
 <template>
-  <Toolbar>
+  <GenericToolbar>
     <template #left>
       <span v-if="searchQuery && matchedMessageIds.length > 0" class="search-result-hint">
         {{ $t('chat.foundResults', { count: matchedMessageIds.length }) }}
@@ -22,12 +22,12 @@
         {{ $t('chat.newChat') }}
       </el-button>
     </template>
-  </Toolbar>
+  </GenericToolbar>
 </template>
 
 <script setup>
 import { AlertCircle, Cpu, Plus as PlusIcon } from 'lucide-vue-next'
-import Toolbar from '@/components/common/Toolbar.vue'
+import GenericToolbar from '@/components/common/GenericToolbar.vue'
 
 defineProps({
   searchQuery: {

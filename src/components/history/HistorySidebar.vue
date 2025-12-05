@@ -1,61 +1,32 @@
 <template>
-  <Sidebar :title="$t('history.categories')">
+  <GenericSidebar
+    :title="$t('history.categories')"
+    :items="sidebarItems"
+    v-model="currentCategory"
+    :show-header-slot="true"
+    :show-divider="true"
+    @select="onSelectCategory"
+  >
     <template #header>
       <div class="sidebar-header">
         <h3>{{ $t('history.categories') }}</h3>
         <el-button :icon="Plus" circle size="small" @click="$emit('add-category')" />
       </div>
     </template>
-    
-    <div class="category-list">
-      <div 
-        class="category-item" 
-        :class="{ active: currentCategory === 'all' }"
-        @click="$emit('update:currentCategory', 'all')"
-      >
-        <span class="category-icon"><LayoutGrid :size="16" /></span>
-        <span class="category-name">{{ $t('history.allChats') }}</span>
-        <span class="category-count">{{ allSessionsCount }}</span>
-      </div>
-      <div 
-        class="category-item" 
-        :class="{ active: currentCategory === 'uncategorized' }"
-        @click="$emit('update:currentCategory', 'uncategorized')"
-      >
-        <span class="category-icon"><HelpCircle :size="16" /></span>
-        <span class="category-name">{{ $t('history.uncategorized') }}</span>
-        <span class="category-count">{{ uncategorizedSessionsCount }}</span>
-      </div>
-      
-      <div class="divider"></div>
-      
-      <div 
-        v-for="cat in categories" 
-        :key="cat"
-        class="category-item"
-        :class="{ active: currentCategory === cat }"
-        @click="$emit('update:currentCategory', cat)"
-      >
-        <span class="category-icon"><Folder :size="16" /></span>
-        <span class="category-name">{{ cat }}</span>
-        <div class="category-actions">
-          <el-button link :icon="Trash2" size="small" @click.stop="$emit('delete-category', cat)" />
-        </div>
-      </div>
-    </div>
-  </Sidebar>
+  </GenericSidebar>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { LayoutGrid, HelpCircle, Folder, Plus, Trash2 } from 'lucide-vue-next'
-import Sidebar from '@/components/common/Sidebar.vue'
+import GenericSidebar from '@/components/common/GenericSidebar.vue'
 
-defineProps({
+const props = defineProps({
   categories: {
     type: Array,
     default: () => []
   },
-  currentCategory: {
+  modelValue: {
     type: String,
     default: 'all'
   },
@@ -69,7 +40,49 @@ defineProps({
   }
 })
 
-defineEmits(['update:currentCategory', 'add-category', 'delete-category'])
+const emit = defineEmits(['update:modelValue', 'add-category', 'delete-category'])
+
+const currentCategory = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value)
+})
+
+const sidebarItems = computed(() => {
+  const items = [
+    {
+      key: 'all',
+      name: $t('history.allChats'),
+      icon: LayoutGrid,
+      count: props.allSessionsCount
+    },
+    {
+      key: 'uncategorized',
+      name: $t('history.uncategorized'),
+      icon: HelpCircle,
+      count: props.uncategorizedSessionsCount
+    }
+  ]
+  
+  props.categories.forEach(category => {
+    items.push({
+      key: category,
+      name: category,
+      icon: Folder,
+      actions: [
+        {
+          icon: Trash2,
+          handler: () => emit('delete-category', category)
+        }
+      ]
+    })
+  })
+  
+  return items
+})
+
+const onSelectCategory = (item) => {
+  emit('update:modelValue', item.key)
+}
 </script>
 
 <style scoped>

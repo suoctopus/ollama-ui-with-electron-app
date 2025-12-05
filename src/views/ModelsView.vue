@@ -17,7 +17,7 @@
         <!-- Left Sidebar - Model Categories -->
         <ModelSidebar
           :models="models"
-          v-model:currentFamily="currentFamily"
+          v-model="currentFamily"
         />
 
         <!-- Main Content -->

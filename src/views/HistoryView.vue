@@ -14,14 +14,13 @@
       </Teleport>
 
       <div class="history-container">
-        <!-- Sidebar -->
+        <!-- Left Sidebar - History Categories -->
         <HistorySidebar
           :categories="categories"
-          :current-category="currentCategory"
-          :all-sessions-count="allSessionsCount"
-          :uncategorized-sessions-count="uncategorizedSessionsCount"
-          @update:currentCategory="currentCategory = $event"
-          @add-category="handleAddCategory"
+          v-model="currentCategory"
+          :all-sessions-count="allSessions.length"
+          :uncategorized-sessions-count="uncategorizedSessions.length"
+          @add-category="showAddCategoryDialog = true"
           @delete-category="handleDeleteCategory"
         />
 
@@ -51,7 +50,7 @@
       <HistoryModals
         v-model:renameDialogVisible="renameDialogVisible"
         v-model:categoryDialogVisible="categoryDialogVisible"
-        v-model:addCategoryDialogVisible="addCategoryDialogVisible"
+        v-model:addCategoryDialogVisible="showAddCategoryDialog"
         v-model:newTitle="newTitle"
         v-model:newCategory="newCategory"
         v-model:newCategoryName="newCategoryName"
@@ -92,7 +91,7 @@ onMounted(() => {
 
 const renameDialogVisible = ref(false)
 const categoryDialogVisible = ref(false)
-const addCategoryDialogVisible = ref(false)
+const showAddCategoryDialog = ref(false)
 const currentEditingSession = ref(null)
 const newTitle = ref('')
 const newCategory = ref('')
@@ -100,9 +99,8 @@ const newCategoryName = ref('')
 
 const currentSessionId = computed(() => chatStore.currentSessionId)
 const categories = computed(() => chatStore.categories)
-
-const allSessionsCount = computed(() => chatStore.sessions.length)
-const uncategorizedSessionsCount = computed(() => chatStore.sessions.filter(s => !s.category).length)
+const allSessions = computed(() => chatStore.sessions)
+const uncategorizedSessions = computed(() => chatStore.sessions.filter(s => !s.category))
 
 const filteredSessions = computed(() => {
   let sessions = chatStore.sessions

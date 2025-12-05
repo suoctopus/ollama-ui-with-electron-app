@@ -1,31 +1,15 @@
 <template>
-  <Toolbar>
-    <template #left>
-      <span v-if="filteredSessionsCount > 0" class="sessions-count">
-        {{ $t('history.sessionCount', { count: filteredSessionsCount }) }}
-      </span>
-    </template>
-    
-    <template #right>
-      <el-button 
-        type="danger" 
-        :disabled="selectedSessionsCount === 0"
-        @click="$emit('delete-selected')" 
-        :icon="Trash2"
-        size="small"
-        plain
-      >
-        {{ $t('history.deleteSelected') }}
-      </el-button>
-    </template>
-  </Toolbar>
+  <GenericToolbar
+    :left-text="filteredSessionsCount > 0 ? $t('history.sessionCount', { count: filteredSessionsCount }) : ''"
+    :right-buttons="rightButtons"
+  />
 </template>
 
 <script setup>
 import { Trash2 } from 'lucide-vue-next'
-import Toolbar from '@/components/common/Toolbar.vue'
+import GenericToolbar from '@/components/common/GenericToolbar.vue'
 
-defineProps({
+const props = defineProps({
   filteredSessionsCount: {
     type: Number,
     default: 0
@@ -36,7 +20,21 @@ defineProps({
   }
 })
 
-defineEmits(['delete-selected'])
+const emit = defineEmits(['delete-selected'])
+
+const rightButtons = [
+  {
+    props: {
+      type: 'danger',
+      disabled: props.selectedSessionsCount === 0,
+      icon: Trash2,
+      size: 'small',
+      plain: true
+    },
+    text: $t('history.deleteSelected'),
+    handler: () => emit('delete-selected')
+  }
+]
 </script>
 
 <style scoped>

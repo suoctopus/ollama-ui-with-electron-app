@@ -1,47 +1,34 @@
 <template>
-  <Sidebar :title="$t('models.categories')">
-    <div class="category-list">
-      <div 
-        class="category-item" 
-        :class="{ active: currentFamily === 'all' }"
-        @click="$emit('update:currentFamily', 'all')"
-      >
-        <span class="category-icon"><LayoutGrid :size="16" /></span>
-        <span class="category-name">{{ $t('models.allModels') }}</span>
-        <span class="category-count">{{ models.length }}</span>
-      </div>
-      <div 
-        v-for="family in modelFamilies" 
-        :key="family"
-        class="category-item"
-        :class="{ active: currentFamily === family }"
-        @click="$emit('update:currentFamily', family)"
-      >
-        <span class="category-icon"><Box :size="16" /></span>
-        <span class="category-name">{{ family }}</span>
-        <span class="category-count">{{ getModelCountByFamily(family) }}</span>
-      </div>
-    </div>
-  </Sidebar>
+  <GenericSidebar
+    :title="$t('models.categories')"
+    :items="sidebarItems"
+    v-model="currentFamily"
+    @select="onSelectFamily"
+  />
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { LayoutGrid, Box } from 'lucide-vue-next'
-import Sidebar from '@/components/common/Sidebar.vue'
+import GenericSidebar from '@/components/common/GenericSidebar.vue'
 
 const props = defineProps({
   models: {
     type: Array,
     required: true
   },
-  currentFamily: {
+  modelValue: {
     type: String,
     default: 'all'
   }
 })
 
-defineEmits(['update:currentFamily'])
+const emit = defineEmits(['update:modelValue'])
+
+const currentFamily = computed({
+  get: () => props.modelValue,
+  set: (value) => emit('update:modelValue', value)
+})
 
 // Get unique model families
 const modelFamilies = computed(() => {
@@ -57,6 +44,30 @@ const modelFamilies = computed(() => {
 // Get model count by family
 const getModelCountByFamily = (family) => {
   return props.models.filter(m => m.details?.family === family).length
+}
+
+const sidebarItems = computed(() => {
+  const items = [{
+    key: 'all',
+    name: $t('models.allModels'),
+    icon: LayoutGrid,
+    count: props.models.length
+  }]
+  
+  modelFamilies.value.forEach(family => {
+    items.push({
+      key: family,
+      name: family,
+      icon: Box,
+      count: getModelCountByFamily(family)
+    })
+  })
+  
+  return items
+})
+
+const onSelectFamily = (item) => {
+  emit('update:modelValue', item.key)
 }
 </script>
 
