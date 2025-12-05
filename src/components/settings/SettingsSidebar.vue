@@ -1,65 +1,16 @@
 <template>
-  <Sidebar title="设置分类">
-    <div class="category-list">
-      <template v-if="activeTab === 'general'">
-        <div 
-          class="category-item" 
-          @click="scrollToSection('connection')"
-        >
-          <span class="category-name">连接设置</span>
-        </div>
-        <div 
-          class="category-item" 
-          @click="scrollToSection('appearance')"
-        >
-          <span class="category-name">外观设置</span>
-        </div>
-      </template>
-      
-      <template v-else-if="activeTab === 'advanced'">
-        <div 
-          class="category-item" 
-          @click="scrollToSection('basic-generation')"
-        >
-          <span class="category-name">基础生成参数</span>
-        </div>
-        <div 
-          class="category-item" 
-          @click="scrollToSection('sampling')"
-        >
-          <span class="category-name">采样参数</span>
-        </div>
-        <div 
-          class="category-item" 
-          @click="scrollToSection('repetition')"
-        >
-          <span class="category-name">重复惩罚参数</span>
-        </div>
-        <div 
-          class="category-item" 
-          @click="scrollToSection('context')"
-        >
-          <span class="category-name">上下文参数</span>
-        </div>
-        <div 
-          class="category-item" 
-          @click="scrollToSection('hardware')"
-        >
-          <span class="category-name">硬件参数</span>
-        </div>
-        <div 
-          class="category-item" 
-          @click="scrollToSection('other')"
-        >
-          <span class="category-name">其他参数</span>
-        </div>
-      </template>
-    </div>
-  </Sidebar>
+  <GenericSidebar
+    title="设置分类"
+    :items="sidebarItems"
+    v-model="currentSection"
+    @select="onSelectSection"
+  />
 </template>
 
 <script setup>
-import Sidebar from '@/components/common/Sidebar.vue'
+import { computed, watch } from 'vue'
+import { List, Palette, SlidersHorizontal, Shuffle, AlertTriangle, Server, Cpu, MoreHorizontal } from 'lucide-vue-next'
+import GenericSidebar from '@/components/common/GenericSidebar.vue'
 
 const props = defineProps({
   activeTab: {
@@ -70,43 +21,72 @@ const props = defineProps({
 
 const emit = defineEmits(['scroll-to'])
 
-const scrollToSection = (section) => {
-  emit('scroll-to', section)
+const currentSection = defineModel({ type: String, default: 'connection' })
+
+// 监听activeTab变化，重置currentSection
+watch(() => props.activeTab, (newTab) => {
+  if (newTab === 'general') {
+    currentSection.value = 'connection'
+  } else {
+    currentSection.value = 'basic-generation'
+  }
+}, { immediate: true })
+
+const sidebarItems = computed(() => {
+  if (props.activeTab === 'general') {
+    return [
+      {
+        key: 'connection',
+        name: '连接设置',
+        icon: Server
+      },
+      {
+        key: 'appearance',
+        name: '外观设置',
+        icon: Palette
+      }
+    ]
+  } else {
+    return [
+      {
+        key: 'basic-generation',
+        name: '基础生成参数',
+        icon: SlidersHorizontal
+      },
+      {
+        key: 'sampling',
+        name: '采样参数',
+        icon: Shuffle
+      },
+      {
+        key: 'repetition',
+        name: '重复惩罚参数',
+        icon: AlertTriangle
+      },
+      {
+        key: 'context',
+        name: '上下文参数',
+        icon: List
+      },
+      {
+        key: 'hardware',
+        name: '硬件参数',
+        icon: Cpu
+      },
+      {
+        key: 'other',
+        name: '其他参数',
+        icon: MoreHorizontal
+      }
+    ]
+  }
+})
+
+const onSelectSection = (item) => {
+  emit('scroll-to', item.key)
 }
 </script>
 
 <style scoped>
-.category-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 8px;
-}
-
-.category-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #666;
-  font-size: 14px;
-  transition: all 0.2s;
-  margin-bottom: 2px;
-}
-
-.category-item:hover {
-  background: #f5f7fa;
-  color: #333;
-}
-
-.category-name {
-  flex: 1;
-}
-
-/* 在这里添加设置项的样式，使其与其它面板保持一致 */
-.settings-item {
-  height: 56px; /* 统一标题行高度 */
-  font-size: 16px; /* 统一字体大小 */
-  text-align: left; /* 左对齐 */
-}
+/* 移除原来的样式，因为现在使用的是通用组件 */
 </style>
