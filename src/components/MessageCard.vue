@@ -128,14 +128,10 @@ const renderMarkdown = (content) => {
 
 const formatTime = (timestamp) => {
   const date = new Date(timestamp)
-  const now = new Date()
-  const diff = now - date
   
-  if (diff < 60000) return '刚刚'
-  if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前'
-  if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前'
-  
+  // 直接返回年月日时间，精确到分
   return date.toLocaleString('zh-CN', {
+    year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
@@ -230,7 +226,6 @@ const handleRegenerate = () => {
   opacity: 1;
 }
 
-.message-card.is-collapsed .markdown-content,
 .message-card.is-collapsed .message-thinking,
 .message-card.is-collapsed .message-images,
 .message-card.is-collapsed .message-actions {
