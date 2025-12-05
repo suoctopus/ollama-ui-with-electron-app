@@ -21,9 +21,94 @@ export const useChatStore = defineStore('chat', {
     },
 
     actions: {
-        // ... (existing actions) ...
+        // Add addMessage method here
+        addMessage(message) {
+            if (!this.currentSession) {
+                this.createSession()
+            }
+            
+            const newMessage = {
+                id: nanoid(),
+                role: message.role,
+                content: message.content || '',
+                thinking: message.thinking || '',
+                images: message.images || [],
+                createdAt: Date.now(), // 使用createdAt而不是timestamp以保持一致性
+                hidden: false,
+                ...message
+            }
+            
+            this.currentSession.messages.push(newMessage)
+            this.saveToStorage()
+            return newMessage
+        },
 
-        // ... (existing actions) ...
+        updateMessage(id, updates) {
+            const session = this.currentSession
+            if (!session) return
+            
+            const message = session.messages.find(m => m.id === id)
+            if (message) {
+                Object.assign(message, updates)
+                this.saveToStorage()
+            }
+        },
+
+        deleteMessage(id) {
+            const session = this.currentSession
+            if (!session) return
+            
+            const index = session.messages.findIndex(m => m.id === id)
+            if (index !== -1) {
+                session.messages.splice(index, 1)
+                this.saveToStorage()
+            }
+        },
+
+        toggleMessageVisibility(id, hidden) {
+            const session = this.currentSession
+            if (!session) return
+            
+            const message = session.messages.find(m => m.id === id)
+            if (message) {
+                message.hidden = hidden
+                this.saveToStorage()
+            }
+        },
+
+        createSession(model = '') {
+            const newSession = {
+                id: nanoid(),
+                title: 'New Chat',
+                model: model,
+                category: '',
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+                messages: [],
+                settings: {}
+            }
+            
+            this.sessions.unshift(newSession)
+            this.currentSessionId = newSession.id
+            this.saveToStorage()
+            return newSession
+        },
+
+        deleteSession(id) {
+            this.sessions = this.sessions.filter(s => s.id !== id)
+            if (this.currentSessionId === id) {
+                this.currentSessionId = this.sessions[0]?.id || null
+            }
+            this.saveToStorage()
+        },
+
+        updateSessionSettings(id, settings) {
+            const session = this.sessions.find(s => s.id === id)
+            if (session) {
+                session.settings = { ...session.settings, ...settings }
+                this.saveToStorage()
+            }
+        },
 
         setCurrentSession(id) {
             this.currentSessionId = id
@@ -36,8 +121,6 @@ export const useChatStore = defineStore('chat', {
                 this.saveToStorage()
             }
         },
-
-
 
         renameSession(id, newTitle) {
             const session = this.sessions.find(s => s.id === id)
@@ -67,8 +150,6 @@ export const useChatStore = defineStore('chat', {
             })
             this.saveToStorage()
         },
-
-        // ... (existing actions) ...
 
         saveToStorage() {
             localStorage.setItem('chat-sessions', JSON.stringify({
