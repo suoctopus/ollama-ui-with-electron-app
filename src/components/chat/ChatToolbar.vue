@@ -1,11 +1,12 @@
 <template>
-  <div class="chat-toolbar">
-    <div class="toolbar-left-section">
+  <Toolbar>
+    <template #left>
       <span v-if="searchQuery && matchedMessageIds.length > 0" class="search-result-hint">
-        找到 {{ matchedMessageIds.length }} 条匹配
+        {{ $t('chat.foundResults', { count: matchedMessageIds.length }) }}
       </span>
-    </div>
-    <div class="toolbar-right-section">
+    </template>
+    
+    <template #right>
       <router-link v-if="!currentRunningModel" to="/models" class="no-model-link">
         <el-button type="warning" plain :icon="AlertCircle" size="small">
           {{ $t('chat.noRunningModel') }}
@@ -20,12 +21,13 @@
       <el-button @click="$emit('new-chat')" :icon="PlusIcon" size="small">
         {{ $t('chat.newChat') }}
       </el-button>
-    </div>
-  </div>
+    </template>
+  </Toolbar>
 </template>
 
 <script setup>
 import { AlertCircle, Cpu, Plus as PlusIcon } from 'lucide-vue-next'
+import Toolbar from '@/components/common/Toolbar.vue'
 
 defineProps({
   searchQuery: {
@@ -46,28 +48,6 @@ defineEmits(['new-chat'])
 </script>
 
 <style scoped>
-.chat-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  background: white;
-  border-bottom: 1px solid #e8e8e8;
-  flex-shrink: 0;
-}
-
-.toolbar-left-section {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.toolbar-right-section {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
 .search-result-hint {
   font-size: 13px;
   color: #faad14;

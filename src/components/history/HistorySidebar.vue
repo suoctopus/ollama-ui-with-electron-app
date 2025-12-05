@@ -1,9 +1,12 @@
 <template>
-  <div class="history-sidebar">
-    <div class="sidebar-header">
-      <h3>{{ $t('history.categories') }}</h3>
-      <el-button :icon="Plus" circle size="small" @click="$emit('add-category')" />
-    </div>
+  <Sidebar :title="$t('history.categories')">
+    <template #header>
+      <div class="sidebar-header">
+        <h3>{{ $t('history.categories') }}</h3>
+        <el-button :icon="Plus" circle size="small" @click="$emit('add-category')" />
+      </div>
+    </template>
+    
     <div class="category-list">
       <div 
         class="category-item" 
@@ -40,11 +43,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </Sidebar>
 </template>
 
 <script setup>
 import { LayoutGrid, HelpCircle, Folder, Plus, Trash2 } from 'lucide-vue-next'
+import Sidebar from '@/components/common/Sidebar.vue'
 
 defineProps({
   categories: {
@@ -69,28 +73,11 @@ defineEmits(['update:currentCategory', 'add-category', 'delete-category'])
 </script>
 
 <style scoped>
-/* Sidebar */
-.history-sidebar {
-  width: 240px;
-  background: white;
-  border-right: 1px solid #e0e0e0;
-  display: flex;
-  flex-direction: column;
-}
-
 .sidebar-header {
-  padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.sidebar-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
+  width: 100%;
 }
 
 .category-list {

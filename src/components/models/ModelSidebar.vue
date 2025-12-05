@@ -1,8 +1,5 @@
 <template>
-  <div class="models-sidebar">
-    <div class="sidebar-header">
-      <h3>模型分类</h3>
-    </div>
+  <Sidebar :title="$t('models.categories')">
     <div class="category-list">
       <div 
         class="category-item" 
@@ -10,7 +7,7 @@
         @click="$emit('update:currentFamily', 'all')"
       >
         <span class="category-icon"><LayoutGrid :size="16" /></span>
-        <span class="category-name">全部模型</span>
+        <span class="category-name">{{ $t('models.allModels') }}</span>
         <span class="category-count">{{ models.length }}</span>
       </div>
       <div 
@@ -25,12 +22,13 @@
         <span class="category-count">{{ getModelCountByFamily(family) }}</span>
       </div>
     </div>
-  </div>
+  </Sidebar>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { LayoutGrid, Box } from 'lucide-vue-next'
+import Sidebar from '@/components/common/Sidebar.vue'
 
 const props = defineProps({
   models: {
@@ -63,28 +61,6 @@ const getModelCountByFamily = (family) => {
 </script>
 
 <style scoped>
-/* Sidebar */
-.models-sidebar {
-  width: 240px;
-  background: white;
-  border-right: 1px solid #e0e0e0;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-}
-
-.sidebar-header {
-  padding: 16px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.sidebar-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
 .category-list {
   flex: 1;
   overflow-y: auto;

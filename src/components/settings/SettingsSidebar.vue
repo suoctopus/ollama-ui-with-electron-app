@@ -1,8 +1,5 @@
 <template>
-  <div class="settings-sidebar">
-    <div class="sidebar-header">
-      <h3>设置分类</h3>
-    </div>
+  <Sidebar title="设置分类">
     <div class="category-list">
       <div 
         class="category-item" 
@@ -21,11 +18,12 @@
         <span class="category-name">{{ $t('settings.advancedSettings') }}</span>
       </div>
     </div>
-  </div>
+  </Sidebar>
 </template>
 
 <script setup>
 import { Settings as SettingsIcon, Sliders } from 'lucide-vue-next'
+import Sidebar from '@/components/common/Sidebar.vue'
 
 defineProps({
   activeTab: {
@@ -38,28 +36,6 @@ defineEmits(['update:activeTab'])
 </script>
 
 <style scoped>
-/* Sidebar */
-.settings-sidebar {
-  width: 240px;
-  background: white;
-  border-right: 1px solid #e0e0e0;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-}
-
-.sidebar-header {
-  padding: 16px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.sidebar-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
 .category-list {
   flex: 1;
   overflow-y: auto;

@@ -22,8 +22,8 @@
         <!-- Main Content -->
         <div class="settings-main">
           <!-- Toolbar -->
-          <div class="settings-toolbar">
-            <div class="toolbar-left">
+          <Toolbar>
+            <template #left>
               <el-button-group>
                 <el-button 
                   :type="activeTab === 'general' ? 'primary' : 'default'"
@@ -40,11 +40,8 @@
                   {{ $t('settings.advancedSettings') }}
                 </el-button>
               </el-button-group>
-            </div>
-            <div class="toolbar-right">
-              <!-- Blank for now or can add quick actions -->
-            </div>
-          </div>
+            </template>
+          </Toolbar>
 
           <div class="settings-content">
             <!-- General Settings -->
@@ -90,6 +87,7 @@ import Layout from '@/components/Layout.vue'
 import SettingsSidebar from '@/components/settings/SettingsSidebar.vue'
 import GeneralSettings from '@/components/settings/GeneralSettings.vue'
 import AdvancedSettings from '@/components/settings/AdvancedSettings.vue'
+import Toolbar from '@/components/common/Toolbar.vue'
 import { Search as SearchIcon } from 'lucide-vue-next'
 import { ElMessage } from 'element-plus'
 
@@ -258,29 +256,6 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-/* Toolbar */
-.settings-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 20px;
-  background: white;
-  border-bottom: 1px solid #e8e8e8;
-  flex-shrink: 0;
-}
-
-.toolbar-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
 .settings-content {
