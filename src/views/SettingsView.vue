@@ -16,7 +16,8 @@
       <div class="settings-container">
         <!-- Left Sidebar -->
         <SettingsSidebar
-          v-model:activeTab="activeTab"
+          :active-tab="activeTab"
+          @scroll-to="handleScrollTo"
         />
 
         <!-- Main Content -->
@@ -41,10 +42,11 @@
             </el-button-group>
           </div>
 
-          <div class="settings-content">
+          <div class="settings-content" ref="settingsContent">
             <!-- General Settings -->
             <GeneralSettings
               v-show="activeTab === 'general'"
+              ref="generalSettings"
               :local-settings="localSettings"
               :testing="testing"
               :connection-status="connectionStatus"
@@ -57,6 +59,7 @@
             <!-- Advanced Settings -->
             <AdvancedSettings
               v-show="activeTab === 'advanced'"
+              ref="advancedSettings"
               :local-settings="localSettings"
               v-model:isKeepAlivePermanent="isKeepAlivePermanent"
               @reset-key="handleResetKey"
@@ -71,7 +74,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch } from 'vue'
+import { ref, reactive, onMounted, watch, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSettingsStore } from '@/store/settings'
 import { testConnection } from '@/api/ollama'
@@ -91,6 +94,9 @@ const testing = ref(false)
 const connectionStatus = ref(null)
 const mounted = ref(false)
 const searchQuery = ref('')
+const settingsContent = ref(null)
+const generalSettings = ref(null)
+const advancedSettings = ref(null)
 
 const localSettings = reactive({
   ollamaUrl: '',
@@ -219,6 +225,75 @@ const handleReset = () => {
 const handleResetKey = (key) => {
   settingsStore.resetKey(key)
   loadSettings()
+}
+
+const handleScrollTo = async (section) => {
+  await nextTick()
+  
+  let targetElement = null
+  
+  if (activeTab.value === 'general') {
+    // 在通用设置中查找目标元素
+    switch (section) {
+      case 'connection':
+        targetElement = document.querySelector('.settings-section:not(.general-settings)')
+        break
+      case 'appearance':
+        targetElement = document.querySelector('.settings-section.general-settings')
+        break
+    }
+  } else if (activeTab.value === 'advanced') {
+    // 在高级设置中查找目标元素
+    switch (section) {
+      case 'basic-generation':
+        targetElement = document.querySelector('.settings-section h3')
+        break
+      case 'sampling':
+        // 找到第二个 h3 元素（采样参数）
+        const h3Elements = document.querySelectorAll('.settings-section h3')
+        if (h3Elements.length > 1) {
+          targetElement = h3Elements[1]
+        }
+        break
+      case 'repetition':
+        // 找到第三个 h3 元素（重复惩罚参数）
+        const h3RepElements = document.querySelectorAll('.settings-section h3')
+        if (h3RepElements.length > 2) {
+          targetElement = h3RepElements[2]
+        }
+        break
+      case 'context':
+        // 找到第四个 h3 元素（上下文参数）
+        const h3CtxElements = document.querySelectorAll('.settings-section h3')
+        if (h3CtxElements.length > 3) {
+          targetElement = h3CtxElements[3]
+        }
+        break
+      case 'hardware':
+        // 找到第五个 h3 元素（硬件参数）
+        const h3HwElements = document.querySelectorAll('.settings-section h3')
+        if (h3HwElements.length > 4) {
+          targetElement = h3HwElements[4]
+        }
+        break
+      case 'other':
+        // 找到最后一个 h3 元素（其他参数）
+        const h3OtherElements = document.querySelectorAll('.settings-section h3')
+        if (h3OtherElements.length > 0) {
+          targetElement = h3OtherElements[h3OtherElements.length - 1]
+        }
+        break
+    }
+  }
+  
+  if (targetElement && settingsContent.value) {
+    const container = settingsContent.value
+    const offsetTop = targetElement.offsetTop
+    container.scrollTo({
+      top: offsetTop - 20,
+      behavior: 'smooth'
+    })
+  }
 }
 
 onMounted(() => {

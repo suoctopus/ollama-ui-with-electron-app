@@ -1,6 +1,6 @@
 <template>
   <div class="settings-card">
-    <div class="settings-section">
+    <div class="settings-section" id="connection">
       <h3>{{ $t('settings.connection') }}</h3>
       
       <div class="setting-row">
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="settings-section general-settings">
+    <div class="settings-section general-settings" id="appearance">
       <h3>{{ $t('settings.appearance') }}</h3>
       
       <div class="setting-row">

@@ -1,7 +1,7 @@
 <template>
   <div class="settings-card">
     <!-- Basic Generation -->
-    <div class="settings-section">
+    <div class="settings-section" id="basic-generation">
       <h3>基础生成参数</h3>
       <p class="section-desc">这些参数控制模型生成文本时的行为，适用于所有新对话。</p>
       
@@ -43,7 +43,7 @@
     </div>
 
     <!-- Sampling Parameters -->
-    <div class="settings-section">
+    <div class="settings-section" id="sampling">
       <h3>采样参数</h3>
       <p class="section-desc">控制采样过程的高级参数。</p>
       
@@ -95,7 +95,7 @@
     </div>
 
     <!-- Repetition Penalty -->
-    <div class="settings-section">
+    <div class="settings-section" id="repetition">
       <h3>重复惩罚参数</h3>
       <p class="section-desc">防止模型重复生成相同或相似的内容。</p>
       
@@ -148,7 +148,7 @@
     </div>
 
     <!-- Context Parameters -->
-    <div class="settings-section">
+    <div class="settings-section" id="context">
       <h3>上下文参数</h3>
       <p class="section-desc">控制模型的上下文记忆能力。</p>
       
@@ -176,7 +176,7 @@
     </div>
 
     <!-- Hardware Parameters -->
-    <div class="settings-section">
+    <div class="settings-section" id="hardware">
       <h3>硬件参数</h3>
       <p class="section-desc">控制模型使用的硬件资源。修改后需要重新加载模型才能生效。</p>
       
@@ -204,7 +204,7 @@
     </div>
 
     <!-- Other Parameters -->
-    <div class="settings-section">
+    <div class="settings-section" id="other">
       <h3>其他参数</h3>
       
       <div class="setting-row">

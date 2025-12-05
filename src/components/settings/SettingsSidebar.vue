@@ -1,38 +1,78 @@
 <template>
   <Sidebar title="设置分类">
     <div class="category-list">
-      <div 
-        class="category-item" 
-        :class="{ active: activeTab === 'general' }"
-        @click="$emit('update:activeTab', 'general')"
-      >
-        <span class="category-icon"><SettingsIcon :size="16" /></span>
-        <span class="category-name">{{ $t('settings.general') }}</span>
-      </div>
-      <div 
-        class="category-item" 
-        :class="{ active: activeTab === 'advanced' }"
-        @click="$emit('update:activeTab', 'advanced')"
-      >
-        <span class="category-icon"><Sliders :size="16" /></span>
-        <span class="category-name">{{ $t('settings.advancedSettings') }}</span>
-      </div>
+      <template v-if="activeTab === 'general'">
+        <div 
+          class="category-item" 
+          @click="scrollToSection('connection')"
+        >
+          <span class="category-name">连接设置</span>
+        </div>
+        <div 
+          class="category-item" 
+          @click="scrollToSection('appearance')"
+        >
+          <span class="category-name">外观设置</span>
+        </div>
+      </template>
+      
+      <template v-else-if="activeTab === 'advanced'">
+        <div 
+          class="category-item" 
+          @click="scrollToSection('basic-generation')"
+        >
+          <span class="category-name">基础生成参数</span>
+        </div>
+        <div 
+          class="category-item" 
+          @click="scrollToSection('sampling')"
+        >
+          <span class="category-name">采样参数</span>
+        </div>
+        <div 
+          class="category-item" 
+          @click="scrollToSection('repetition')"
+        >
+          <span class="category-name">重复惩罚参数</span>
+        </div>
+        <div 
+          class="category-item" 
+          @click="scrollToSection('context')"
+        >
+          <span class="category-name">上下文参数</span>
+        </div>
+        <div 
+          class="category-item" 
+          @click="scrollToSection('hardware')"
+        >
+          <span class="category-name">硬件参数</span>
+        </div>
+        <div 
+          class="category-item" 
+          @click="scrollToSection('other')"
+        >
+          <span class="category-name">其他参数</span>
+        </div>
+      </template>
     </div>
   </Sidebar>
 </template>
 
 <script setup>
-import { Settings as SettingsIcon, Sliders } from 'lucide-vue-next'
 import Sidebar from '@/components/common/Sidebar.vue'
 
-defineProps({
+const props = defineProps({
   activeTab: {
     type: String,
     required: true
   }
 })
 
-defineEmits(['update:activeTab'])
+const emit = defineEmits(['scroll-to'])
+
+const scrollToSection = (section) => {
+  emit('scroll-to', section)
+}
 </script>
 
 <style scoped>
@@ -57,18 +97,6 @@ defineEmits(['update:activeTab'])
 .category-item:hover {
   background: #f5f7fa;
   color: #333;
-}
-
-.category-item.active {
-  background: #e6f7ff;
-  color: #409eff;
-  font-weight: 500;
-}
-
-.category-icon {
-  display: flex;
-  align-items: center;
-  margin-right: 8px;
 }
 
 .category-name {
