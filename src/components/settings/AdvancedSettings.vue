@@ -222,10 +222,10 @@
               @change="handleUpdateKeepAlive"
             />
             <el-input 
-              v-if="!isKeepAlivePermanent"
-              v-model="localSettings.keepAlive" 
-              placeholder="5m" 
-              style="width: 100px" 
+              :disabled="isKeepAlivePermanent"
+              v-model="localSettings.keepAlive"
+              placeholder="5m"
+              style="width: 100px"
             />
           </div>
           <el-button link :icon="RotateCcw" @click="handleResetKey('keepAlive')" title="恢复默认" />
@@ -284,3 +284,4 @@ export default {
   }
 }
 </script>
+

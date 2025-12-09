@@ -70,12 +70,12 @@ export function useSettingsView() {
     localSettings.systemPrompt = settings.value.systemPrompt
     
     // Sync switch state
-    isKeepAlivePermanent.value = localSettings.keepAlive === '-1'
+    isKeepAlivePermanent.value = localSettings.keepAlive === '-1s'
   }
 
   watch(isKeepAlivePermanent, (val) => {
     if (val) {
-      localSettings.keepAlive = '-1'
+      localSettings.keepAlive = '-1s'
     } else {
       // If switching back from permanent, default to 5m if it was -1, otherwise keep current
       if (localSettings.keepAlive === '-1') {
