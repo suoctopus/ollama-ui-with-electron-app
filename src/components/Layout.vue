@@ -10,21 +10,16 @@
   </div>
 </template>
 
-<script setup>
+<script>
+import { useLayout } from '@/composables/common/useLayout'
 import TopNav from '@/components/common/TopNav.vue'
+
+export default {
+  components: {
+    TopNav
+  },
+  setup() {
+    return useLayout()
+  }
+}
 </script>
-
-<style scoped>
-.layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.main-content {
-  flex: 1;
-  overflow: hidden;
-  background: #f5f5f5;
-}
-</style>

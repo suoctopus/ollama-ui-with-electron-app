@@ -20,7 +20,7 @@
         <el-input
           v-model="inputContent"
           type="textarea"
-          :placeholder="$t('chat.inputPlaceholder')"
+          :placeholder="t('chat.inputPlaceholder')"
           :rows="3"
           resize="none"
           @keydown.enter.exact.prevent="handleSend"
@@ -50,18 +50,18 @@
           </div>
           
           <!-- Settings Button -->
-          <el-button text :icon="Settings2" @click="$emit('open-settings')" class="tool-btn-text">设置</el-button>
+          <el-button text :icon="Settings2" @click="openSettings" class="tool-btn-text">设置</el-button>
         </div>
         
         <!-- Right Send Button -->
         <div class="toolbar-right">
           <el-button
             v-if="generating"
-            @click="$emit('stop')"
+            @click="stop"
             :icon="Square"
             type="danger"
           >
-            {{ $t('chat.stop') }}
+            {{ t('chat.stop') }}
           </el-button>
           <el-button
             v-else
@@ -70,7 +70,7 @@
             type="primary"
             :disabled="!inputContent.trim() || !currentRunningModel"
           >
-            {{ $t('chat.send') }}
+            {{ t('chat.send') }}
           </el-button>
         </div>
       </div>
@@ -88,182 +88,31 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { Plus as PlusIcon, Send, Square, X, Settings2 } from 'lucide-vue-next'
+<script>
+import { useChatInput } from '@/composables/chat/useChatInput'
 
-const props = defineProps({
-  generating: {
-    type: Boolean,
-    default: false
-  },
-  currentRunningModel: {
-    type: String,
-    default: null
-  }
-})
-
-const emit = defineEmits(['send', 'stop', 'open-settings'])
-
-const inputContent = ref('')
-const images = ref([])
-const enableThink = ref(false)
-const fileInput = ref(null)
-
-const triggerImageUpload = () => {
-  fileInput.value?.click()
-}
-
-const handleImageSelect = (event) => {
-  const files = event.target.files
-  if (!files || files.length === 0) return
-  
-  for (const file of files) {
-    if (file.type.startsWith('image/')) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        images.value.push(e.target.result)
-      }
-      reader.readAsDataURL(file)
+export default {
+  props: {
+    generating: {
+      type: Boolean,
+      default: false
+    },
+    currentRunningModel: {
+      type: String,
+      default: null
     }
+  },
+  emits: ['send', 'stop', 'open-settings'],
+  setup(props, { emit, expose }) {
+    const composable = useChatInput(props, emit)
+    
+    // Expose methods for parent component access
+    expose({
+      setInput: composable.setInput,
+      reset: composable.reset
+    })
+    
+    return composable
   }
-  
-  event.target.value = ''
 }
-
-const removeImage = (index) => {
-  images.value.splice(index, 1)
-}
-
-const handleSend = () => {
-  if (!inputContent.value.trim() || !props.currentRunningModel || props.generating) return
-  
-  emit('send', {
-    content: inputContent.value.trim(),
-    images: [...images.value], // Send copy
-    think: enableThink.value
-  })
-  
-  // Clear input after sending (parent will handle the actual API call, but we clear UI immediately for better UX? 
-  // Or wait? Usually clear immediately)
-  inputContent.value = ''
-  images.value = []
-}
-
-const setInput = (text) => {
-  inputContent.value = text
-}
-
-const reset = () => {
-  inputContent.value = ''
-  images.value = []
-}
-
-defineExpose({
-  setInput,
-  reset
-})
 </script>
-
-<style scoped>
-/* Floating Input Area */
-.input-float-wrapper {
-  position: sticky;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  padding-bottom: 0;
-  pointer-events: none;
-  background: linear-gradient(to bottom, transparent 0%, #f5f5f5 60%);
-}
-
-.input-float-card {
-  max-width: 800px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
-  padding: 16px;
-  pointer-events: auto;
-}
-
-.image-preview {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.preview-item {
-  position: relative;
-  width: 60px;
-  height: 60px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e0e0e0;
-}
-
-.preview-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.preview-item .el-button {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-}
-
-.input-box :deep(.el-textarea__inner) {
-  border: none;
-  box-shadow: none;
-  padding: 12px 16px;
-  font-size: 14px;
-  line-height: 1.6;
-  background: transparent;
-}
-
-.input-box :deep(.el-textarea__inner):focus {
-  box-shadow: none;
-}
-
-.input-toolbar-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
-  margin-top: 8px;
-}
-
-.toolbar-left {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.tool-btn-text {
-  font-size: 13px;
-  color: #666;
-}
-
-.think-toggle-inline {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 8px;
-}
-
-.think-label {
-  font-size: 13px;
-  color: #666;
-  white-space: nowrap;
-}
-
-.toolbar-right {
-  display: flex;
-  gap: 8px;
-}
-</style>

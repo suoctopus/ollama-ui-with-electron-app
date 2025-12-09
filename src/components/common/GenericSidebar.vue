@@ -36,111 +36,39 @@
   </Sidebar>
 </template>
 
-<script setup>
-import Sidebar from '@/components/common/Sidebar.vue'
+<script>
+import Sidebar from './Sidebar.vue'
+import { useGenericSidebar } from '@/composables/common/useGenericSidebar'
 
-const props = defineProps({
-  title: {
-    type: String,
-    default: ''
+export default {
+  components: {
+    Sidebar
   },
-  items: {
-    type: Array,
-    default: () => []
+  props: {
+    title: {
+      type: String,
+      default: ''
+    },
+    items: {
+      type: Array,
+      default: () => []
+    },
+    modelValue: {
+      type: [String, Object],
+      default: null
+    },
+    showHeaderSlot: {
+      type: Boolean,
+      default: false
+    },
+    showDivider: {
+      type: Boolean,
+      default: false
+    }
   },
-  modelValue: {
-    type: [String, Object],
-    default: null
-  },
-  showHeaderSlot: {
-    type: Boolean,
-    default: false
-  },
-  showDivider: {
-    type: Boolean,
-    default: false
+  emits: ['update:modelValue', 'select'],
+  setup(props, { emit }) {
+    return useGenericSidebar(props, emit)
   }
-})
-
-const emit = defineEmits(['update:modelValue', 'select'])
-
-const isActive = (item) => {
-  return props.modelValue === item.key || props.modelValue === item
-}
-
-const selectItem = (item) => {
-  emit('update:modelValue', item.key || item)
-  emit('select', item)
 }
 </script>
-
-<style scoped>
-.category-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 8px;
-}
-
-.category-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #666;
-  font-size: 14px;
-  transition: all 0.2s;
-  margin-bottom: 2px;
-}
-
-.category-item:hover {
-  background: #f5f7fa;
-  color: #333;
-}
-
-.category-item.active {
-  background: #e6f7ff;
-  color: #409eff;
-  font-weight: 500;
-}
-
-.category-icon {
-  display: flex;
-  align-items: center;
-  margin-right: 8px;
-}
-
-.category-name {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.category-count {
-  font-size: 12px;
-  color: #999;
-  background: #f0f0f0;
-  padding: 2px 6px;
-  border-radius: 10px;
-}
-
-.category-item.active .category-count {
-  background: #bae7ff;
-  color: #096dd9;
-}
-
-.category-actions {
-  display: none;
-}
-
-.category-item:hover .category-actions {
-  display: flex;
-}
-
-.divider {
-  height: 1px;
-  background: #f0f0f0;
-  margin: 8px 0;
-}
-</style>

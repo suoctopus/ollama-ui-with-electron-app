@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import router from './router'
+import { router } from '@/composables/core/useRouter'
 import i18n from './i18n'
 import App from './App.vue'
+
+// Initialize state management
+import { useChatState, useSettings, useModels } from '@/composables/core/useState'
 
 // Element Plus
 import ElementPlus from 'element-plus'
@@ -13,12 +15,17 @@ import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'highlight.js/styles/github-dark.css'
 
 // Custom styles
-import './styles/main.css'
+import './styles/main.scss'
 
 const app = createApp(App)
-const pinia = createPinia()
 
-app.use(pinia)
+// Initialize state from localStorage
+const chatState = useChatState()
+const settings = useSettings()
+
+chatState.loadFromStorage()
+settings.loadFromStorage()
+
 app.use(router)
 app.use(i18n)
 app.use(ElementPlus, {

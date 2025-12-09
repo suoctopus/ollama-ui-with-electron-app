@@ -1,0 +1,66 @@
+@use '../variables.scss' as *;
+
+// src/styles/common/TopNav.scss
+.top-nav {
+  display: flex;
+  align-items: center;
+  padding: 0 $spacing-1;
+  height: $topnav-height;
+  background: $card-background;
+  border-bottom: $border-width-thin solid $color-border-light;
+  flex-shrink: 0;
+  gap: $spacing-1;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav-brand:empty {
+  display: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: 6px $spacing-2;
+  border-radius: $border-radius-md;
+  text-decoration: none;
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+  transition: $transition-fast;
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  background: $color-background-base;
+  color: $color-text-regular;
+}
+
+.nav-item.router-link-exact-active {
+  background: #e6f7ff;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+#global-search {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

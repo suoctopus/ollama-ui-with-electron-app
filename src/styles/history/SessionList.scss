@@ -1,0 +1,129 @@
+@use '../variables.scss' as *;
+
+.history-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .el-checkbox-group {
+    width: 100%;
+    max-width: 800px;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: $color-text-secondary;
+
+  p {
+    margin-top: 16px;
+    font-size: 16px;
+  }
+}
+
+.session-card {
+  display: flex;
+  padding: $spacing-4;
+  margin-bottom: $spacing-3;
+  background: $color-background-white;
+  border: $border-width-thin solid $border-color;
+  border-radius: $border-radius-xl;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+    box-shadow: 0 4px 12px rgba(64, 158, 255, 0.1);
+    transform: translateY(-1px);
+
+    .session-actions {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    border-color: $color-primary;
+    background: #f0f9ff;
+  }
+}
+
+.session-checkbox {
+  display: flex;
+  align-items: flex-start;
+  padding-right: 12px;
+  padding-top: 4px;
+}
+
+.session-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.session-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-text-primary;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-tag {
+  font-weight: normal;
+}
+
+.session-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.session-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: $color-text-secondary;
+}
+
+.session-model {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.session-time {
+  font-size: 12px;
+  color: $color-text-placeholder;
+  margin-left: auto;
+}
+
+.session-preview {
+  font-size: 14px;
+  color: $color-text-secondary;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

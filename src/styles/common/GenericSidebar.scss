@@ -1,0 +1,71 @@
+@use '../variables.scss' as *;
+
+// src/styles/common/GenericSidebar.scss
+.category-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-2;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  padding: 10px $spacing-3;
+  border-radius: $spacing-2;
+  cursor: pointer;
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+  transition: $transition-fast;
+  margin-bottom: 2px;
+}
+
+.category-item:hover {
+  background: $color-background-base;
+  color: $color-text-regular;
+}
+
+.category-item.active {
+  background: #e6f7ff;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.category-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.category-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-count {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  background: $border-color-light;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.category-item.active .category-count {
+  background: #bae7ff;
+  color: #096dd9;
+}
+
+.category-actions {
+  display: none;
+}
+
+.category-item:hover .category-actions {
+  display: flex;
+}
+
+.divider {
+  height: 1px;
+  background: $border-color-light;
+  margin: $spacing-2 0;
+}

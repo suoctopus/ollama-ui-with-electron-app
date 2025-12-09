@@ -13,7 +13,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.temperature" :min="0" :max="2" :step="0.1" style="width: 180px" />
           <span class="value-display">{{ localSettings.temperature }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'temperature')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('temperature')" title="恢复默认" />
         </div>
       </div>
       
@@ -25,7 +25,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.topP" :min="0" :max="1" :step="0.05" style="width: 180px" />
           <span class="value-display">{{ localSettings.topP }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'topP')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('topP')" title="恢复默认" />
         </div>
       </div>
       
@@ -37,7 +37,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.topK" :min="1" :max="100" :step="1" style="width: 180px" />
           <span class="value-display">{{ localSettings.topK }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'topK')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('topK')" title="恢复默认" />
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="setting-control">
           <el-input-number v-model="localSettings.seed" :min="-1" style="width: 140px" />
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'seed')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('seed')" title="恢复默认" />
         </div>
       </div>
 
@@ -65,7 +65,7 @@
         </div>
         <div class="setting-control">
           <el-input-number v-model="localSettings.numPredict" :min="-1" :max="8192" :step="64" style="width: 140px" />
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'numPredict')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('numPredict')" title="恢复默认" />
         </div>
       </div>
 
@@ -77,7 +77,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.minP" :min="0" :max="1" :step="0.05" style="width: 180px" />
           <span class="value-display">{{ localSettings.minP }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'minP')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('minP')" title="恢复默认" />
         </div>
       </div>
 
@@ -89,7 +89,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.typicalP" :min="0" :max="1" :step="0.05" style="width: 180px" />
           <span class="value-display">{{ localSettings.typicalP }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'typicalP')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('typicalP')" title="恢复默认" />
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@
         </div>
         <div class="setting-control">
           <el-input-number v-model="localSettings.repeatLastN" :min="0" :max="2048" :step="8" style="width: 140px" />
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'repeatLastN')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('repeatLastN')" title="恢复默认" />
         </div>
       </div>
 
@@ -118,7 +118,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.repeatPenalty" :min="1" :max="2" :step="0.05" style="width: 180px" />
           <span class="value-display">{{ localSettings.repeatPenalty }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'repeatPenalty')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('repeatPenalty')" title="恢复默认" />
         </div>
       </div>
 
@@ -130,7 +130,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.presencePenalty" :min="0" :max="2" :step="0.1" style="width: 180px" />
           <span class="value-display">{{ localSettings.presencePenalty }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'presencePenalty')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('presencePenalty')" title="恢复默认" />
         </div>
       </div>
 
@@ -142,7 +142,7 @@
         <div class="setting-control">
           <el-slider v-model="localSettings.frequencyPenalty" :min="0" :max="2" :step="0.1" style="width: 180px" />
           <span class="value-display">{{ localSettings.frequencyPenalty }}</span>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'frequencyPenalty')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('frequencyPenalty')" title="恢复默认" />
         </div>
       </div>
     </div>
@@ -159,7 +159,7 @@
         </div>
         <div class="setting-control">
           <el-input-number v-model="localSettings.numCtx" :min="512" :max="131072" :step="512" style="width: 140px" />
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'numCtx')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('numCtx')" title="恢复默认" />
         </div>
       </div>
 
@@ -170,7 +170,7 @@
         </div>
         <div class="setting-control">
           <el-input-number v-model="localSettings.numKeep" :min="0" :max="100" style="width: 140px" />
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'numKeep')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('numKeep')" title="恢复默认" />
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@
         </div>
         <div class="setting-control">
           <el-input-number v-model="localSettings.numGpu" :min="-1" :max="999" style="width: 140px" />
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'numGpu')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('numGpu')" title="恢复默认" />
         </div>
       </div>
 
@@ -198,7 +198,7 @@
         </div>
         <div class="setting-control">
           <el-input-number v-model="localSettings.numThread" :min="0" :max="64" style="width: 140px" />
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'numThread')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('numThread')" title="恢复默认" />
         </div>
       </div>
     </div>
@@ -219,7 +219,7 @@
               active-text="永久"
               inactive-text="自定义"
               inline-prompt
-              @change="$emit('update:isKeepAlivePermanent', $event)"
+              @change="handleUpdateKeepAlive"
             />
             <el-input 
               v-if="!isKeepAlivePermanent"
@@ -228,7 +228,7 @@
               style="width: 100px" 
             />
           </div>
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'keepAlive')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('keepAlive')" title="恢复默认" />
         </div>
       </div>
 
@@ -238,7 +238,7 @@
           <span class="setting-desc">全局系统提示词，会应用到所有新对话的开头</span>
         </div>
         <div class="setting-control">
-          <el-button link :icon="RotateCcw" @click="$emit('reset-key', 'systemPrompt')" title="恢复默认" />
+          <el-button link :icon="RotateCcw" @click="handleResetKey('systemPrompt')" title="恢复默认" />
         </div>
       </div>
       <div class="setting-row-full">
@@ -254,133 +254,33 @@
 
     <!-- Action buttons inside the card -->
     <div class="settings-actions">
-      <el-button @click="$emit('reset')">
-        {{ $t('settings.reset') }}
+      <el-button @click="handleReset">
+        {{ t('settings.reset') }}
       </el-button>
-      <el-button type="primary" @click="$emit('save')">
-        {{ $t('settings.save') }}
+      <el-button type="primary" @click="handleSave">
+        {{ t('settings.save') }}
       </el-button>
     </div>
   </div>
 </template>
 
-<script setup>
-import { RotateCcw } from 'lucide-vue-next'
+<script>
+import { useAdvancedSettings } from '@/composables/settings/useAdvancedSettings'
 
-defineProps({
-  localSettings: {
-    type: Object,
-    required: true
+export default {
+  props: {
+    localSettings: {
+      type: Object,
+      required: true
+    },
+    isKeepAlivePermanent: {
+      type: Boolean,
+      default: false
+    }
   },
-  isKeepAlivePermanent: {
-    type: Boolean,
-    default: false
+  emits: ['reset-key', 'update:isKeepAlivePermanent', 'reset', 'save'],
+  setup(props, { emit }) {
+    return useAdvancedSettings(props, emit)
   }
-})
-
-defineEmits(['reset-key', 'update:isKeepAlivePermanent', 'reset', 'save'])
+}
 </script>
-
-<style scoped>
-.settings-card {
-  width: 100%;
-  max-width: 900px;
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  min-height: fit-content;
-  height: auto;
-}
-
-.settings-section {
-  margin-bottom: 32px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.settings-section:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.settings-section h3 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-.section-desc {
-  margin: 0 0 20px 0;
-  font-size: 13px;
-  color: #999;
-}
-
-.setting-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #fafafa;
-}
-
-.setting-row:last-child {
-  border-bottom: none;
-}
-
-.setting-row-full {
-  padding: 12px 0;
-  width: 100%;
-}
-
-.setting-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-  min-width: 0;
-}
-
-.setting-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-}
-
-.setting-desc {
-  font-size: 12px;
-  color: #999;
-}
-
-.setting-control {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.value-display {
-  min-width: 48px;
-  text-align: center;
-  font-weight: 600;
-  color: #409eff;
-  background: #f0f7ff;
-  padding: 4px 10px;
-  border-radius: 4px;
-  font-size: 13px;
-}
-
-.keep-alive-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.settings-actions {
-  margin-top: 24px;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  width: 100%;
-}
-</style>

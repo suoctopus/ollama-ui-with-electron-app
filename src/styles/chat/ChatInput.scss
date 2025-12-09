@@ -1,0 +1,102 @@
+@use '../variables.scss' as *;
+
+/* Floating Input Area */
+.input-float-wrapper {
+  position: sticky;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  padding-bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, $background-color 60%);
+}
+
+.input-float-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: $card-background;
+  border-radius: $border-radius-large;
+  box-shadow: $shadow-large;
+  padding: $spacing-medium;
+  pointer-events: auto;
+}
+
+.image-preview {
+  display: flex;
+  gap: $spacing-small;
+  margin-bottom: $spacing-small;
+  flex-wrap: wrap;
+}
+
+.preview-item {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: $border-radius-small;
+  overflow: hidden;
+  border: 1px solid $border-color;
+}
+
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-item .el-button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.input-box :deep(.el-textarea__inner) {
+  border: none;
+  box-shadow: none;
+  padding: $spacing-small $spacing-medium;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  background: transparent;
+}
+
+.input-box :deep(.el-textarea__inner):focus {
+  box-shadow: none;
+}
+
+.input-toolbar-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: $spacing-small;
+  border-top: 1px solid $border-color-light;
+  margin-top: $spacing-small;
+}
+
+.toolbar-left {
+  display: flex;
+  gap: $spacing-small;
+  align-items: center;
+}
+
+.tool-btn-text {
+  font-size: $font-size-small;
+  color: $text-color-secondary;
+}
+
+.think-toggle-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 $spacing-small;
+}
+
+.think-label {
+  font-size: $font-size-small;
+  color: $text-color-secondary;
+  white-space: nowrap;
+}
+
+.toolbar-right {
+  display: flex;
+  gap: $spacing-small;
+}

@@ -1,24 +1,15 @@
 <template>
-  <div id="app" :style="{ fontSize: settings.fontSize + 'px' }">
+  <div id="app" :style="appStyle">
     <router-view />
   </div>
 </template>
 
-<script setup>
-import { onMounted } from 'vue'
-import { useSettingsStore } from './store/settings'
-import { useChatStore } from './store/chat'
+<script>
+import { useApp } from '@/composables/useApp'
 
-const settings = useSettingsStore()
-const chat = useChatStore()
-
-onMounted(() => {
-  // 从 localStorage 加载设置
-  settings.loadFromStorage()
-  chat.loadFromStorage()
-})
+export default {
+  setup() {
+    return useApp()
+  }
+}
 </script>
-
-<style>
-/* Global styles are in src/styles/main.css */
-</style>

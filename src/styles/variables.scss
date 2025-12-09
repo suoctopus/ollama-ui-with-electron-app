@@ -1,0 +1,289 @@
+// ============================================
+// Color System
+// ============================================
+
+// Brand Colors
+$color-primary: #409eff;
+$color-primary-light: #79bbff;
+$color-primary-lighter: #a0cfff;
+$color-primary-dark: #337ecc;
+
+$color-success: #67c23a;
+$color-success-light: #95d475;
+$color-success-dark: #529b2e;
+
+$color-warning: #e6a23c;
+$color-warning-light: #ebb563;
+$color-warning-dark: #b88230;
+
+$color-danger: #f56c6c;
+$color-danger-light: #f89898;
+$color-danger-dark: #c45656;
+
+$color-info: #909399;
+$color-info-light: #b1b3b8;
+$color-info-dark: #73767a;
+
+// Text Colors
+$color-text-primary: #303133;
+$color-text-regular: #606266;
+$color-text-secondary: #909399;
+$color-text-placeholder: #c0c4cc;
+$color-text-disabled: #c0c4cc;
+$color-text-inverse: #ffffff;
+
+// Common aliases
+$text-color-secondary: #666;
+
+// Border Colors
+$color-border-base: #dcdfe6;
+$color-border-light: #e4e7ed;
+$color-border-lighter: #ebeef5;
+$color-border-extra-light: #f2f6fc;
+$color-border-dark: #d4d7de;
+
+// Common aliases
+$border-color: #e0e0e0;
+$border-color-light: #f0f0f0;
+
+// Background Colors
+$color-background-base: #f5f7fa;
+$color-background-light: #fafafa;
+$color-background-white: #ffffff;
+$color-background-dark: #f0f2f5;
+$color-background-overlay: rgba(0, 0, 0, 0.5);
+
+// Common aliases
+$background-color: #f5f5f5;
+$card-background: #ffffff;
+
+// Code & Markdown Colors
+$color-code-bg: #1e1e1e;
+$color-code-text: #d4d4d4;
+$color-code-inline-bg: #f4f4f4;
+$color-code-inline-text: #e83e8c;
+$color-blockquote-border: #ddd;
+$color-blockquote-bg: #f9f9f9;
+$color-blockquote-text: #666;
+$color-table-border: #ddd;
+$color-table-header-bg: #f4f4f4;
+$color-table-stripe-bg: #fafafa;
+
+// Scrollbar Colors
+$color-scrollbar-track: #f1f1f1;
+$color-scrollbar-thumb: #888;
+$color-scrollbar-thumb-hover: #555;
+
+// Chat-specific Colors
+$color-message-user-bg: #e3f2fd;
+$color-message-assistant-bg: #f5f5f5;
+$color-message-system-bg: #fff3e0;
+$color-message-hover-bg: #fafafa;
+$color-highlight: #fff9c4;
+
+// Status Colors
+$color-status-online: #67c23a;
+$color-status-offline: #909399;
+$color-status-error: #f56c6c;
+$color-status-loading: #409eff;
+
+// ============================================
+// Typography
+// ============================================
+
+// Font Families
+$font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+$font-family-code: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', Courier, monospace;
+$font-family-heading: $font-family-base;
+
+// Font Sizes
+$font-size-xs: 12px;
+$font-size-sm: 13px;
+$font-size-base: 14px;
+$font-size-md: 15px;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+$font-size-2xl: 20px;
+$font-size-3xl: 24px;
+$font-size-4xl: 30px;
+
+// Common aliases
+$font-size-small: $font-size-sm;
+
+// Font Weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line Heights
+$line-height-tight: 1.2;
+$line-height-snug: 1.4;
+$line-height-base: 1.6;
+$line-height-relaxed: 1.8;
+$line-height-loose: 2.0;
+
+// Letter Spacing
+$letter-spacing-tight: -0.05em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.05em;
+
+// ============================================
+// Spacing
+// ============================================
+
+$spacing-0: 0;
+$spacing-1: 4px;
+$spacing-2: 8px;
+$spacing-3: 12px;
+$spacing-4: 16px;
+$spacing-5: 20px;
+$spacing-6: 24px;
+$spacing-8: 32px;
+$spacing-10: 40px;
+$spacing-12: 48px;
+$spacing-16: 64px;
+$spacing-20: 80px;
+
+// Semantic spacing aliases
+$spacing-xs: $spacing-1;
+$spacing-sm: $spacing-2;
+$spacing-md: $spacing-3;
+$spacing-lg: $spacing-4;
+$spacing-xl: $spacing-5;
+$spacing-2xl: $spacing-6;
+$spacing-3xl: $spacing-8;
+
+// Common aliases
+$spacing-small: $spacing-2;
+$spacing-medium: $spacing-4;
+
+// ============================================
+// Border & Radius
+// ============================================
+
+// Border Width
+$border-width-thin: 1px;
+$border-width-base: 2px;
+$border-width-thick: 3px;
+
+// Border Radius
+$border-radius-none: 0;
+$border-radius-sm: 2px;
+$border-radius-base: 4px;
+$border-radius-md: 6px;
+$border-radius-lg: 8px;
+$border-radius-xl: 12px;
+$border-radius-2xl: 16px;
+$border-radius-full: 9999px;
+$border-radius-circle: 50%;
+
+// Common aliases
+$border-radius-small: $border-radius-lg;
+$border-radius-large: $border-radius-2xl;
+
+// ============================================
+// Shadows
+// ============================================
+
+$box-shadow-none: none;
+$box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$box-shadow-base: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+$box-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$box-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$box-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+$box-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+$box-shadow-light: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+$box-shadow-dark: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+// Common aliases
+$shadow-large: 0 6px 30px rgba(0, 0, 0, 0.15);
+
+// ============================================
+// Transitions & Animations
+// ============================================
+
+// Transition Durations
+$duration-fast: 150ms;
+$duration-base: 200ms;
+$duration-slow: 300ms;
+$duration-slower: 400ms;
+
+// Transition Timing Functions
+$ease-in: cubic-bezier(0.4, 0, 1, 1);
+$ease-out: cubic-bezier(0, 0, 0.2, 1);
+$ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+$ease-linear: linear;
+
+// Transition Presets
+$transition-fast: all $duration-fast $ease-in-out;
+$transition-base: all $duration-base $ease-in-out;
+$transition-slow: all $duration-slow $ease-in-out;
+$transition-color: color $duration-base $ease-in-out, background-color $duration-base $ease-in-out, border-color $duration-base $ease-in-out;
+$transition-transform: transform $duration-base $ease-in-out;
+$transition-opacity: opacity $duration-base $ease-in-out;
+
+// ============================================
+// Z-index Layers
+// ============================================
+
+$z-index-base: 1;
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+$z-index-notification: 1080;
+
+// ============================================
+// Breakpoints
+// ============================================
+
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 992px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1440px;
+$breakpoint-2xl: 1920px;
+
+// ============================================
+// Layout Dimensions
+// ============================================
+
+// Sidebar
+$sidebar-width: 260px;
+$sidebar-width-collapsed: 60px;
+
+// Toolbar
+$toolbar-height: 60px;
+$toolbar-height-compact: 48px;
+
+// Top Navigation
+$topnav-height: 56px;
+
+// Content
+$content-max-width: 1200px;
+$content-padding: $spacing-4;
+
+// Input
+$input-height-sm: 32px;
+$input-height-base: 40px;
+$input-height-lg: 48px;
+
+// Button
+$button-height-sm: 28px;
+$button-height-base: 36px;
+$button-height-lg: 44px;
+
+// ============================================
+// Opacity
+// ============================================
+
+$opacity-disabled: 0.5;
+$opacity-hover: 0.8;
+$opacity-loading: 0.6;
+$opacity-overlay: 0.5;

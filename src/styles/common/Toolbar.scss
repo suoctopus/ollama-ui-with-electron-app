@@ -1,0 +1,25 @@
+@use '../variables.scss' as *;
+
+// src/styles/common/Toolbar.scss
+.common-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $spacing-4;
+  background: $card-background;
+  border-bottom: $border-width-thin solid $color-border-light;
+  flex-shrink: 0;
+  height: $topnav-height;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

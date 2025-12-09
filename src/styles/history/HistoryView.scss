@@ -1,0 +1,21 @@
+@use '../variables.scss' as *;
+
+.history-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $color-background-base;
+}
+
+.history-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.history-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

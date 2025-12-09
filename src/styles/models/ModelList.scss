@@ -1,0 +1,35 @@
+@use '../variables.scss' as *;
+
+.models-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-6;
+}
+
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .models-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: $color-text-secondary;
+  text-align: center;
+}
+
+.empty-state p {
+  margin-top: 16px;
+  font-size: 16px;
+}

@@ -1,14 +1,14 @@
 import { reactive, watch } from 'vue'
-import { useChatStore } from '@/store/chat'
-import { useSettingsStore } from '@/store/settings'
+import { useChatState } from '@/composables/core/useState'
+import { useSettings } from '@/composables/core/useState'
 
 /**
  * 会话设置管理 Composable
  * 用于管理当前对话的参数设置
  */
 export function useSessionSettings() {
-    const chatStore = useChatStore()
-    const settingsStore = useSettingsStore()
+    const chatState = useChatState()
+    const settingsState = useSettings()
 
     // 默认设置
     const defaultSettings = {
@@ -36,12 +36,12 @@ export function useSessionSettings() {
      * 从当前会话加载设置
      */
     const loadSessionSettings = () => {
-        if (!chatStore.currentSession) return
+        if (!chatState.currentSession.value) return
 
-        const savedSettings = chatStore.currentSession.settings || {}
-        localSettings.temperature = savedSettings.temperature ?? settingsStore.temperature
-        localSettings.top_p = savedSettings.top_p ?? settingsStore.topP
-        localSettings.top_k = savedSettings.top_k ?? settingsStore.topK
+        const savedSettings = chatState.currentSession.value.settings || {}
+        localSettings.temperature = savedSettings.temperature ?? settingsState.settings.value.temperature
+        localSettings.top_p = savedSettings.top_p ?? settingsState.settings.value.topP
+        localSettings.top_k = savedSettings.top_k ?? settingsState.settings.value.topK
         localSettings.seed = savedSettings.seed ?? -1
         localSettings.num_predict = savedSettings.num_predict ?? -1  // Changed default to -1 (no limit)
         localSettings.repeat_penalty = savedSettings.repeat_penalty ?? 1.1
@@ -52,9 +52,9 @@ export function useSessionSettings() {
      * 保存设置到当前会话
      */
     const saveSessionSettings = () => {
-        if (!chatStore.currentSession) return
+        if (!chatState.currentSession.value) return
 
-        chatStore.updateSessionSettings(chatStore.currentSession.id, {
+        chatState.updateSessionSettings(chatState.currentSession.value.id, {
             temperature: localSettings.temperature,
             top_p: localSettings.top_p,
             top_k: localSettings.top_k,
@@ -86,7 +86,7 @@ export function useSessionSettings() {
      * 监听会话切换，自动加载设置
      */
     const setupSessionWatcher = () => {
-        watch(() => chatStore.currentSessionId, () => {
+        watch(() => chatState.currentSessionId.value, () => {
             loadSessionSettings()
         })
     }

@@ -1,0 +1,53 @@
+// ============================================
+// Main SCSS Entry Point
+// ============================================
+// Use Order:
+// 1. Variables (must be first - used by all other files)
+// 2. Base styles (reset, utilities, global styles)
+// 3. App-level styles
+// 4. Component styles (organized by feature)
+// ============================================
+
+// 1. Variables - Design tokens and SCSS variables
+@use './variables.scss' as *;
+
+// 2. Base styles - Reset, utilities, and global styles
+@use './baseStyle.scss';
+
+// 3. App-level styles
+@use './App.scss';
+
+// 4. Component styles organized by feature
+// ============================================
+
+// Chat components
+@use './chat/ChatView.scss';
+@use './chat/ChatInput.scss';
+@use './chat/MessageList.scss';
+@use './chat/ChatToolbar.scss';
+@use './chat/ChatOutline.scss';
+
+// Model components
+@use './models/ModelsView.scss';
+@use './models/ModelList.scss';
+@use './models/ModelCard.scss';
+@use './models/ModelToolbar.scss';
+@use './models/ModelModals.scss';
+
+// History components
+@use './history/HistoryView.scss';
+@use './history/SessionList.scss';
+@use './history/HistorySidebar.scss';
+
+// Settings components
+@use './settings/SettingsView.scss';
+@use './settings/GeneralSettings.scss';
+@use './settings/AdvancedSettings.scss';
+
+// Common/shared components
+@use './common/Layout.scss';
+@use './common/Sidebar.scss';
+@use './common/Toolbar.scss';
+@use './common/TopNav.scss';
+@use './common/GenericSidebar.scss';
+@use './common/GenericToolbar.scss';

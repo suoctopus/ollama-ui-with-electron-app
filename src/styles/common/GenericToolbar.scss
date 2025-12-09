@@ -1,0 +1,7 @@
+@use '../variables.scss' as *;
+
+// src/styles/common/GenericToolbar.scss
+.toolbar-text {
+  font-size: $font-size-sm;
+  color: $color-text-regular;
+}

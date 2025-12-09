@@ -1,0 +1,103 @@
+@use '../variables.scss' as *;
+
+.settings-card {
+  width: 100%;
+  max-width: 900px;
+  background: $card-background;
+  border-radius: $border-radius-xl;
+  padding: $spacing-6;
+  min-height: fit-content;
+  height: auto;
+}
+
+.settings-section {
+  margin-bottom: $spacing-8;
+  padding-bottom: $spacing-6;
+  border-bottom: $border-width-thin solid $border-color-light;
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.settings-section h3 {
+  margin: 0 0 $spacing-2 0;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-regular;
+}
+
+.section-desc {
+  margin: 0 0 $spacing-5 0;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-3 0;
+  border-bottom: $border-width-thin solid $color-background-light;
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-row-full {
+  padding: $spacing-3 0;
+  width: 100%;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.setting-label {
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $color-text-regular;
+}
+
+.setting-desc {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.setting-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.value-display {
+  min-width: 48px;
+  text-align: center;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  background: #f0f7ff;
+  padding: $spacing-1 10px;
+  border-radius: $border-radius-base;
+  font-size: $font-size-sm;
+}
+
+.keep-alive-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.settings-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
+}

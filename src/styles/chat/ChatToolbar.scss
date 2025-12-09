@@ -1,0 +1,31 @@
+@use '../variables.scss' as *;
+
+.message-count {
+  font-size: $font-size-sm;
+  color: $color-text-regular;
+  margin-right: $spacing-md;
+  font-weight: $font-weight-medium;
+}
+
+.search-result-hint {
+  font-size: $font-size-sm;
+  color: $color-warning;
+  font-weight: $font-weight-medium;
+}
+
+.current-model-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: $spacing-1 10px;
+  background: #e8f5e9;
+  border-radius: $border-radius-base;
+  font-size: $font-size-sm;
+  color: #2e7d32;
+  font-weight: $font-weight-medium;
+  border: $border-width-thin solid #c8e6c9;
+}
+
+.no-model-link {
+  text-decoration: none;
+}

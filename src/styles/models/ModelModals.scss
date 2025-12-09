@@ -1,0 +1,72 @@
+@use '../variables.scss' as *;
+
+// Pull progress section
+.pull-progress {
+  margin-top: 16px;
+}
+
+.progress-status {
+  font-size: $font-size-sm;
+  color: $color-text-regular;
+  margin-bottom: $spacing-2;
+}
+
+// Model details dialog
+.model-details-dialog {
+  .details-content {
+    padding: 0 10px;
+  }
+
+  .details-section {
+    margin-bottom: 24px;
+
+    h4 {
+      margin: 0 0 $spacing-3 0;
+      font-size: $font-size-md;
+      font-weight: $font-weight-semibold;
+      color: $color-text-regular;
+      padding-bottom: $spacing-2;
+      border-bottom: $border-width-thin solid $border-color-light;
+    }
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .details-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &.full-width {
+      grid-column: span 2;
+    }
+  }
+
+  .item-label {
+    font-size: $font-size-xs;
+    color: $color-text-secondary;
+  }
+
+  .item-value {
+    font-size: $font-size-base;
+    color: $color-text-regular;
+    font-weight: $font-weight-medium;
+    word-break: break-all;
+  }
+
+  .digest-code {
+    display: block;
+    padding: $spacing-3;
+    background: $color-background-base;
+    border-radius: $border-radius-md;
+    font-family: $font-family-code;
+    font-size: $font-size-xs;
+    color: $color-text-regular;
+    word-break: break-all;
+    line-height: $line-height-snug;
+  }
+}

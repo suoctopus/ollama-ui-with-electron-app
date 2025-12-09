@@ -21,24 +21,26 @@
   </Toolbar>
 </template>
 
-<script setup>
+<script>
+import { useGenericToolbar } from '@/composables/common/useGenericToolbar'
 import Toolbar from '@/components/common/Toolbar.vue'
 
-defineProps({
-  leftText: {
-    type: String,
-    default: ''
+export default {
+  components: {
+    Toolbar
   },
-  rightButtons: {
-    type: Array,
-    default: () => []
+  props: {
+    leftText: {
+      type: String,
+      default: ''
+    },
+    rightButtons: {
+      type: Array,
+      default: () => []
+    }
+  },
+  setup() {
+    return useGenericToolbar()
   }
-})
-</script>
-
-<style scoped>
-.toolbar-text {
-  font-size: 13px;
-  color: #666;
 }
-</style>
+</script>

@@ -1,0 +1,137 @@
+@use '../variables.scss' as *;
+
+.model-card {
+  background: $card-background;
+  border-radius: $border-radius-xl;
+  border: $border-width-thin solid $color-border-light;
+  overflow: hidden;
+  transition: $transition-slow;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.model-card:hover {
+  box-shadow: $box-shadow-md;
+  transform: translateY(-2px);
+}
+
+.model-card.is-running {
+  border-color: $color-success;
+  box-shadow: 0 0 0 1px rgba(103, 194, 58, 0.2);
+}
+
+.model-card.is-loading {
+  opacity: $opacity-hover;
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  border-bottom: $border-width-thin solid $border-color-light;
+  flex-shrink: 0;
+}
+
+.model-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-inverse;
+  flex-shrink: 0;
+}
+
+.model-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.model-name {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: 6px;
+  word-break: break-all;
+}
+
+.model-meta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  flex-wrap: wrap;
+}
+
+.model-size {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.model-status {
+  flex-shrink: 0;
+}
+
+.model-status .el-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.card-body {
+  padding: $spacing-4;
+  flex: 1;
+}
+
+.model-details {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: $font-size-sm;
+}
+
+.detail-label {
+  color: $color-text-secondary;
+}
+
+.detail-value {
+  color: $color-text-regular;
+  font-weight: $font-weight-medium;
+}
+
+.keep-alive-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.card-actions {
+  padding: $spacing-3 $spacing-4;
+  background: $color-background-base;
+  border-top: $border-width-thin solid $border-color-light;
+  display: flex;
+  gap: $spacing-2;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
