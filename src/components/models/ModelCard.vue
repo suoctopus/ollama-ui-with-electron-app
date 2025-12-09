@@ -57,11 +57,9 @@
               :model-value="getKeepAliveDuration(model.name)"
               @update:model-value="(val) => setKeepAliveDuration(model.name, val)"
               size="small" 
-              style="width: 70px"
+              style="width: 100px"
               :disabled="getKeepAlivePermanent(model.name)"
-            >
-              <template #suffix>m</template>
-            </el-input>
+            />
           </div>
         </div>
       </div>

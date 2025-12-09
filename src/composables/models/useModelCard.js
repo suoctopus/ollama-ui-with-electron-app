@@ -39,12 +39,12 @@ export function useModelCard(props, emit) {
 
   // Keep alive settings
   const getKeepAlivePermanent = (name) => {
-    return modelState.modelKeepAliveSettings.value[name] === '-1'
+    return modelState.modelKeepAliveSettings.value[name] === '-1s'
   }
 
   const setKeepAlivePermanent = (name, isPerm) => {
     if (isPerm) {
-      modelState.setModelKeepAlive(name, '-1')
+      modelState.setModelKeepAlive(name, '-1s')
     } else {
       modelState.setModelKeepAlive(name, '5m')
     }
@@ -52,14 +52,13 @@ export function useModelCard(props, emit) {
 
   const getKeepAliveDuration = (name) => {
     const val = modelState.modelKeepAliveSettings.value[name]
-    if (val === '-1') return '-1'
-    if (!val) return '5'
-    return val.replace('m', '')
+    if (val === '-1s') return '-1s'
+    return val || '5m'
   }
 
   const setKeepAliveDuration = (name, val) => {
-    if (!isNaN(val) && val > 0) {
-      modelState.setModelKeepAlive(name, `${val}m`)
+    if (val && val.trim() !== '') {
+      modelState.setModelKeepAlive(name, val.trim())
     }
   }
 

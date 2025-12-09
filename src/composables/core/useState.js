@@ -61,6 +61,24 @@ watch([sessions, categories, currentSessionId], () => {
   saveChatToStorage()
 }, { deep: true })
 
+// 全局定义createSession函数
+const createSession = (model = '') => {
+  const newSession = {
+    id: nanoid(),
+    title: 'New Chat',
+    model: model,
+    category: '',
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    messages: [],
+    settings: {}
+  }
+  
+  sessions.value.unshift(newSession)
+  currentSessionId.value = newSession.id
+  return newSession
+}
+
 // 导出聊天状态管理
 export function useChatState() {
   const addMessage = (message) => {
@@ -111,23 +129,6 @@ export function useChatState() {
     if (message) {
       message.hidden = hidden
     }
-  }
-  
-  const createSession = (model = '') => {
-    const newSession = {
-      id: nanoid(),
-      title: 'New Chat',
-      model: model,
-      category: '',
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-      messages: [],
-      settings: {}
-    }
-    
-    sessions.value.unshift(newSession)
-    currentSessionId.value = newSession.id
-    return newSession
   }
   
   const deleteSession = (id) => {

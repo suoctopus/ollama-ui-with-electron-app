@@ -99,6 +99,13 @@ export async function deleteModel(name) {
  * @returns {Promise<boolean>} - 是否成功
  */
 export async function loadModel(name, keepAlive = '5m') {
+  // 验证并转换keepAlive参数格式
+  if (keepAlive === 'permanent') {
+    keepAlive = '-1s'; // 永久驻留使用-1s
+  } else if (!/^(-1s|\d+[smhd]|0)$/.test(keepAlive)) {
+    throw new Error('Invalid keep_alive format. Use -1s, number + (s/m/h/d) or 0');
+  }
+
   const { post } = useApi()
   try {
     await post('/api/generate', {
@@ -123,7 +130,7 @@ export async function unloadModel(name) {
   try {
     await post('/api/generate', {
       model: name,
-      keep_alive: 0,
+      keep_alive: '0s', // 使用正确的时间格式而非数字0
       stream: false
     })
     return true
@@ -244,3 +251,5 @@ export async function generateEmbeddings(model, prompt) {
   })
   return await response.json()
 }
+
+
